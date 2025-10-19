@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: only light;
+  }
+
+  /* Light theme defaults */
+  body {
+    background-color: #e5e5e5;
+    color: #0a0a0a;
+    font-family: 'Bricolage Grotesque', 'Quicksand', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  }
+
+  /* Dark theme when html has .dark */
+  html.dark body {
+    background-color: #08090a;
+    color: rgba(255, 255, 255, 0.95);
+  }
+  
+  /* Hide scrollbars globally but keep scrolling enabled */
+  html, body {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+  html::-webkit-scrollbar,
+  body::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    display: none; /* Chrome, Safari, Opera */
+  }
+}
+
+@layer components {
+  .blur-gradient-bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 20rem; /* Equivalent to h-80 */
+  }
+
+  .blur-gradient-bottom::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJhIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iLjc1IiBzdGl0Y2hUaWxlcz0ic3RpdGNoIi8+PGZlQ29sb3JNYXRyaXggdHlwZT0ic2F0dXJhdGUiIHZhbHVlcz0iMCIvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbHRlcj0idXJsKCNhKSIgb3BhY2l0eT0iLjA1Ii8+PC9zdmc+');
+    opacity: 0.2;
+    mix-blend-mode: overlay;
+  }
+}
