@@ -31,6 +31,16 @@
     height: 0;
     display: none; /* Chrome, Safari, Opera */
   }
+
+  /* Disable text selection across the whole page */
+  *, *::before, *::after {
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none; /* iOS long-press menu */
+  }
+  /* If you ever add inputs/textareas and want them selectable, uncomment below */
+  /* input, textarea { user-select: text; -webkit-user-select: text; } */
 }
 
 @layer components {

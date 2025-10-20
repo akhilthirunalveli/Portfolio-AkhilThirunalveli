@@ -255,7 +255,7 @@ export default function App() {
 					: 'bg-gradient-to-b from-gray-100 via-blue-200 via-blue-100 to-[#93b4f5]'
 				} flex items-end justify-center pt-20 pb-0 mt-10 relative overflow-hidden`}
 			>
-				<h2
+				<h2 
 					className="select-none text-center font-black text-white leading-none mb-[-50px] relative z-10"
 					style={{
 						fontSize: 'clamp(4rem, 20vw, 18rem)',
