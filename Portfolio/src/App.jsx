@@ -11,23 +11,24 @@ function ProjectCard({ src, alt, link }) {
 
 	const handleMouseEnter = () => {
 		if (!cardRef.current) return
-		gsap.to(cardRef.current, { scale: 1.05, duration: 0.3, ease: 'power2.out' })
+		gsap.to(cardRef.current, { scale: 1.05, duration: 0.3, ease: 'power2.out', overwrite: 'auto' })
 	}
 	const handleMouseLeave = () => {
 		if (!cardRef.current) return
-		gsap.to(cardRef.current, { scale: 1, duration: 0.3, ease: 'power2.out' })
+		gsap.to(cardRef.current, { scale: 1, duration: 0.3, ease: 'power2.out', overwrite: 'auto' })
 	}
 	const handleClick = () => link && window.open(link, '_blank', 'noopener,noreferrer')
 
 	return (
 		<div
 			ref={cardRef}
-			className="relative group rounded-[15px] shadow-lg cursor-pointer overflow-hidden transition-transform duration-300"
+			className="relative group rounded-[15px] shadow-lg cursor-pointer overflow-hidden"
 			onMouseEnter={handleMouseEnter}
 			onMouseLeave={handleMouseLeave}
 			onClick={handleClick}
 			style={{
-				cursor: 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'24\' height=\'24\'%3E%3Cpath fill=\'white\' d=\'M7 7h8.586L5.293 17.293l1.414 1.414L17 8.414V17h2V5H7v2z\'/%3E%3C/svg%3E") 12 12, pointer'
+				cursor: 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'24\' height=\'24\'%3E%3Cpath fill=\'white\' d=\'M7 7h8.586L5.293 17.293l1.414 1.414L17 8.414V17h2V5H7v2z\'/\%3E%3C/svg%3E") 12 12, pointer',
+				willChange: 'transform'
 			}}
 		>
 			<div className="w-full h-80 flex items-center justify-center bg-gray-900 dark:bg-gray-800 rounded-[15px]">
@@ -237,12 +238,12 @@ export default function App() {
 					</div>
 
 					<div className={`${isListView ? 'flex flex-col gap-[0.5cm]' : 'grid grid-cols-2 gap-[0.5cm]'}`}>
-						<ProjectCard src="/src/assets/Projects/1.png" alt="MockMate" link="https://mockmateapp.vercel.app/" />
-						<ProjectCard src="/src/assets/Projects/3.png" alt="NewsSailor" link="https://www.newssailor.com/" />
-						<ProjectCard src="/src/assets/Projects/2.png" alt="KnowMyStatus" link="https://knowmystatus.vercel.app/" />
-						<ProjectCard src="/src/assets/Projects/4.png" alt="AKEV" link="https://github.com/akhilthirunalveli/AKEY-React-Native/" />
-						<ProjectCard src="/src/assets/Projects/5.png" alt="Mausam" link="https://aajkamausam.vercel.app/" />
-						<ProjectCard src="/src/assets/Projects/6.png" alt="Exam | VIT" link="https://vitexam.vercel.app/" />
+						<ProjectCard src="/Projects/1.png" alt="MockMate" link="https://mockmateapp.vercel.app/" />
+						<ProjectCard src="/Projects/3.png" alt="NewsSailor" link="https://www.newssailor.com/" />
+						<ProjectCard src="/Projects/2.png" alt="KnowMyStatus" link="https://knowmystatus.vercel.app/" />
+						<ProjectCard src="/Projects/4.png" alt="AKEV" link="https://github.com/akhilthirunalveli/AKEY-React-Native/" />
+						<ProjectCard src="/Projects/5.png" alt="Mausam" link="https://aajkamausam.vercel.app/" />
+						<ProjectCard src="/Projects/6.png" alt="Exam | VIT" link="https://vitexam.vercel.app/" />
 					</div>
 				</section>
 			</div>
@@ -252,7 +253,7 @@ export default function App() {
 				className={`w-full blur-gradient-bottom ${theme === 'dark' 
 					? 'bg-gradient-to-b from-gray-900 via-[#1a1a40] via-[#0f1030] to-[#0b2b6b]' 
 					: 'bg-gradient-to-b from-gray-100 via-blue-200 via-blue-100 to-[#93b4f5]'
-				} flex items-end justify-center pt-10 pb-0 mt-10 relative overflow-hidden`}
+				} flex items-end justify-center pt-20 pb-0 mt-10 relative overflow-hidden`}
 			>
 				<h2
 					className="select-none text-center font-black text-white leading-none mb-[-50px] relative z-10"
