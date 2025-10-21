@@ -42,6 +42,7 @@ export default function App() {
 	const [theme, setTheme] = useState('dark')
 	const [isListView, setIsListView] = useState(false)
 	const [isDragging, setIsDragging] = useState(false)
+	const [isMobile, setIsMobile] = useState(false)
 	const dragRef = useRef(null)
 	const dragOffset = useRef({ x: 0, y: 0 })
 	const overlayRef = useRef(null)
@@ -50,6 +51,15 @@ export default function App() {
 	useEffect(() => {
 		document.documentElement.classList.toggle('dark', theme === 'dark')
 	}, [theme])
+
+	useEffect(() => {
+		const checkMobile = () => {
+			setIsMobile(window.innerWidth < 768)
+		}
+		checkMobile()
+		window.addEventListener('resize', checkMobile)
+		return () => window.removeEventListener('resize', checkMobile)
+	}, [])
 
 	const toggleView = () => setIsListView(!isListView)
 
@@ -125,6 +135,12 @@ export default function App() {
 	}
 
 	const toggleTheme = () => playThemeTransition(theme === 'dark' ? 'light' : 'dark')
+
+	const getProjectsGridClass = () => {
+		if (isListView) return 'flex flex-col gap-[0.5cm]'
+		if (isMobile) return 'grid grid-cols-1 gap-[0.5cm]'
+		return 'grid grid-cols-2 gap-[0.5cm]'
+	}
 
 	return (
 		<div
@@ -246,7 +262,7 @@ export default function App() {
 							</div>
 						</div>
 
-						<div className={`${isListView ? 'flex flex-col gap-[0.5cm]' : 'grid grid-cols-2 gap-[0.5cm]'}`}>
+						<div className={getProjectsGridClass()}>
 							<ProjectCard src="/Projects/1.png" alt="MockMate" link="https://mockmateapp.vercel.app/" />
 							<ProjectCard src="/Projects/3.png" alt="NewsSailor" link="https://www.newssailor.com/" />
 							<ProjectCard src="/Projects/2.png" alt="KnowMyStatus" link="https://knowmystatus.vercel.app/" />
@@ -258,25 +274,27 @@ export default function App() {
 				</div>
 			</div>
 
-			{/* Bottom section with AKHIL (mobile only) */}
-			<footer 
-				className={`w-full blur-gradient-bottom ${theme === 'dark' 
-					? 'bg-gradient-to-b from-gray-900 via-[#1a1a40] via-[#0f1030] to-[#0b2b6b]' 
-					: 'bg-gradient-to-b from-gray-100 via-blue-200 via-blue-100 to-[#93b4f5]'
-				} flex items-end justify-center pt-20 pb-0 mt-10 relative overflow-hidden sm:hidden`}
-			>
-				<h2 
-					className="select-none text-center font-black text-white leading-none mb-[-50px] relative z-10"
-					style={{
-						fontSize: 'clamp(4rem, 20vw, 18rem)',
-						letterSpacing: '0.05em',
-						opacity: theme === 'dark' ? 0.1 : 0.2,
-					}}
-					aria-hidden="true"
+			{/* Bottom section with AKHIL (laptop/desktop only) */}
+			{!isMobile && (
+				<footer 
+					className={`w-full blur-gradient-bottom ${theme === 'dark' 
+						? 'bg-gradient-to-b from-gray-900 via-[#1a1a40] via-[#0f1030] to-[#0b2b6b]' 
+						: 'bg-gradient-to-b from-gray-100 via-blue-200 via-blue-100 to-[#93b4f5]'
+					} flex items-end justify-center pt-20 pb-0 mt-10 relative overflow-hidden`}
 				>
-					AKHIL
-				</h2>
-			</footer>
+					<h2 
+						className="select-none text-center font-black text-white leading-none mb-[-50px] relative z-10"
+						style={{
+							fontSize: 'clamp(4rem, 20vw, 18rem)',
+							letterSpacing: '0.05em',
+							opacity: theme === 'dark' ? 0.1 : 0.2,
+						}}
+						aria-hidden="true"
+					>
+						AKHIL
+					</h2>
+				</footer>
+			)}
 		</div>
 	)
 }
