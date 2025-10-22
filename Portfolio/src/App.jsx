@@ -1,10 +1,14 @@
 import React, { useRef, useState, useEffect } from 'react'
 import { gsap } from 'gsap'
 import Typewriter from './Typewriter'
-import { IoGridOutline } from "react-icons/io5"
+import { IoGridOutline, IoDocumentText } from "react-icons/io5"
 import "@theme-toggles/react/css/Expand.css"
 import { Expand } from "@theme-toggles/react"
 import './styles.css'
+import { Dock, DockIcon } from './components/Dock'
+import { FaGithub, FaLinkedin, FaEnvelope } from 'react-icons/fa'
+import { RiTwitterXLine } from 'react-icons/ri'
+import { SiLeetcode, SiMongodb } from 'react-icons/si'
 
 function ProjectCard({ src, alt, link }) {
 	const cardRef = useRef(null)
@@ -175,7 +179,7 @@ export default function App() {
 			</div>
 
 			{/* Wrapper with padding for main content */}
-			<div 
+			<div
 				className="flex-grow px-4 sm:px-0"
 				style={{
 					paddingLeft: 'max(env(safe-area-inset-left), 16px)',
@@ -191,33 +195,31 @@ export default function App() {
 							21, <Typewriter words={["Full Stack Developer", "Tech Nerd", "Software Engineer", "Sleepy"]} />
 						</p>
 						<p className="text-base text-gray-500 dark:text-gray-400 ">
-							Full stack developer with really good OCD which means you won't lose any feature or aesthetics. Currently, looking to start as Software Developer. Meanwhile I am buildingMockMate.</p>
+							Full stack developer with really good OCD which means you won't lose any feature or aesthetics. Currently, looking to start as Software Developer. Meanwhile I am building MockMate.</p>
 						<p className="text-base text-gray-500 dark:text-gray-400 opacity-95">
-							Apart from work, you will find me asleep. You can always reach me at <span className="font-semibold text-black dark:text-white border-b-2 border-blue-500">thirunalveliakhil@gmail.com</span>
+							Apart from work, you will find me asleep. You can always reach me at <span className="font-semibold text-black dark:text-white border-b-2 border-blue-500">thirunalveliakhil@gmail.com</span>.
 						</p>
 					</section>
 
-					{/* Skills */}
 					<section className="space-y-6 text-left">
 						<h2 className="text-2xl font-semibold text-black dark:text-white transition-colors duration-300">Skills</h2>
 						<div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem' }}>
 							{[
 								'React',
 								'Node.js',
-								'Express.js',
-								'Fastify',
+								'React Native',
 								'MySQL',
 								'PostgreSQL',
 								'MongoDB',
 								'Firebase',
-								'Supabase',
+								'AWS',
 								'Docker',
 							].map(skill => (
 								<span key={skill} className="skill-pill" style={{
 									padding: '0.5rem 1rem',
 									borderRadius: '999px',
 									background: theme === 'dark' ? 'black' : 'black',
-									color: theme === 'dark' ? 'white' : 'white',
+									color: 'white',
 									fontWeight: 500,
 									fontSize: '0.95rem',
 									marginBottom: '0.25rem',
@@ -270,19 +272,102 @@ export default function App() {
 							<ProjectCard src="/Projects/5.png" alt="Mausam" link="https://aajkamausam.vercel.app/" />
 							<ProjectCard src="/Projects/6.png" alt="Exam | VIT" link="https://vitexam.vercel.app/" />
 						</div>
+
+						{/* Dock below projects */}
+						<div className="flex w-full justify-center mt-[1cm]">
+							<Dock direction="middle" iconSize={40} iconMagnification={64} iconDistance={140} className="text-black dark:text-white">
+								{/* Resume with static label beside icon (no underline) */}
+								<DockIcon>
+									<a
+										href="/AkhilThirunalveli_VITB_22BET10003.pdf"
+										target="_blank"
+										rel="noopener noreferrer"
+										aria-label="Resume"
+										className="flex items-center gap-2 text-black dark:text-white opacity-80 hover:opacity-100 transition-opacity no-underline hover:no-underline"
+										style={{ color: 'inherit' }}
+									>
+										<IoDocumentText size={22} color="currentColor" />
+									</a>
+								</DockIcon>
+
+								{/* X (Twitter) */}
+								<DockIcon>
+									<a
+										href="https://x.com/archivebyakhil"
+										target="_blank"
+										rel="noopener noreferrer"
+										aria-label="X"
+										className="text-black dark:text-white opacity-80 hover:opacity-100 transition-opacity"
+										style={{ color: 'inherit' }}
+									>
+										<RiTwitterXLine size={22} color="currentColor" />
+									</a>
+								</DockIcon>
+
+								{/* LeetCode */}
+								<DockIcon>
+									<a
+										href="https://leetcode.com/akhilthirunalveli"
+										target="_blank"
+										rel="noopener noreferrer"
+										aria-label="LeetCode"
+										className="text-black dark:text-white opacity-80 hover:opacity-100 transition-opacity"
+										style={{ color: 'inherit' }}
+									>
+										<SiLeetcode size={22} color="currentColor" />
+									</a>
+								</DockIcon>
+
+								<DockIcon>
+									<a
+										href="https://github.com/akhilthirunalveli"
+										target="_blank"
+										rel="noopener noreferrer"
+										aria-label="GitHub"
+										className="text-black dark:text-white opacity-80 hover:opacity-100 transition-opacity"
+										style={{ color: 'inherit' }}
+									>
+										<FaGithub size={22} color="currentColor" />
+									</a>
+								</DockIcon>
+
+								<DockIcon>
+									<a
+										href="https://www.linkedin.com/in/akhilthirunalveli/"
+										target="_blank"
+										rel="noopener noreferrer"
+										aria-label="LinkedIn"
+										className="text-black dark:text-white opacity-80 hover:opacity-100 transition-opacity"
+										style={{ color: 'inherit' }}
+									>
+										<FaLinkedin size={22} color="currentColor" />
+									</a>
+								</DockIcon>
+								<DockIcon>
+									<a
+										href="mailto:thirunalveliakhil@gmail.com"
+										aria-label="Email"
+										className="text-black dark:text-white opacity-80 hover:opacity-100 transition-opacity"
+										style={{ color: 'inherit' }}
+									>
+										<FaEnvelope size={22} color="currentColor" />
+									</a>
+								</DockIcon>
+							</Dock>
+						</div>
 					</section>
 				</div>
 			</div>
 
 			{/* Bottom section with AKHIL (laptop/desktop only) */}
 			{!isMobile && (
-				<footer 
-					className={`w-full blur-gradient-bottom ${theme === 'dark' 
-						? 'bg-gradient-to-b from-gray-900 via-[#1a1a40] via-[#0f1030] to-[#0b2b6b]' 
+				<footer
+					className={`w-full blur-gradient-bottom ${theme === 'dark'
+						? 'bg-gradient-to-b from-gray-900 via-[#1a1a40] via-[#0f1030] to-[#0b2b6b]'
 						: 'bg-gradient-to-b from-gray-100 via-blue-200 via-blue-100 to-[#93b4f5]'
-					} flex items-end justify-center pt-20 pb-0 mt-10 relative overflow-hidden`}
+						} flex items-end justify-center pt-20 pb-0 mt-10 relative overflow-hidden`}
 				>
-					<h2 
+					<h2
 						className="select-none text-center font-black text-white leading-none mb-[-50px] relative z-10"
 						style={{
 							fontSize: 'clamp(4rem, 20vw, 18rem)',
