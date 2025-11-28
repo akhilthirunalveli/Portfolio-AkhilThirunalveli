@@ -268,7 +268,7 @@ export default function App() {
 							<ProjectCard src="/Projects/1.png" alt="MockMate" link="https://mockmateapp.vercel.app/" />
 							<ProjectCard src="/Projects/3.png" alt="NewsSailor" link="https://www.newssailor.com/" />
 							<ProjectCard src="/Projects/2.png" alt="KnowMyStatus" link="https://knowmystatus.vercel.app/" />
-							<ProjectCard src="/Projects/4.png" alt="AKEV" link="https://github.com/akhilthirunalveli/AKEY-React-Native/" />
+							<ProjectCard src="/Projects/4.png" alt="DraftEngine" link="https://draftengine.vercel.app/" />
 							<ProjectCard src="/Projects/5.png" alt="Mausam" link="https://aajkamausam.vercel.app/" />
 							<ProjectCard src="/Projects/6.png" alt="Exam | VIT" link="https://vitexam.vercel.app/" />
 						</div>
