@@ -61,6 +61,13 @@
     opacity: 0.2;
     mix-blend-mode: overlay;
     pointer-events: none;
+
     z-index: 0; /* stays behind footer content; H2 has z-10 */
   }
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
 }

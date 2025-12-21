@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react'
+import { flushSync } from 'react-dom'
 import { gsap } from 'gsap'
 import Typewriter from './Typewriter'
 import { IoGridOutline, IoDocumentText } from "react-icons/io5"
@@ -49,8 +50,7 @@ export default function App() {
 	const [isMobile, setIsMobile] = useState(false)
 	const dragRef = useRef(null)
 	const dragOffset = useRef({ x: 0, y: 0 })
-	const overlayRef = useRef(null)
-	const circleRef = useRef(null)
+	const themeButtonRef = useRef(null)
 
 	useEffect(() => {
 		document.documentElement.classList.toggle('dark', theme === 'dark')
@@ -97,48 +97,38 @@ export default function App() {
 		}
 	}, [isDragging])
 
-	// Fancy theme change animation
-	const getCoverScale = (base = 200) => {
-		const w = window.innerWidth
-		const h = window.innerHeight
-		const radiusNeeded = Math.hypot(w, h) / 2
-		return radiusNeeded / (base / 2)
+	const toggleTheme = async () => {
+		const nextTheme = theme === 'dark' ? 'light' : 'dark'
+
+		// Return early if View Transition API is not supported or user prefers reduced motion
+		if (
+			!document.startViewTransition ||
+			window.matchMedia('(prefers-reduced-motion: reduce)').matches
+		) {
+			setTheme(nextTheme)
+			return
+		}
+
+		await document.startViewTransition(() => {
+			flushSync(() => {
+				setTheme(nextTheme)
+			})
+		}).ready
+
+		document.documentElement.animate(
+			{
+				clipPath: [
+					'inset(0 0 100% 0)',
+					'inset(0 0 0 0)',
+				],
+			},
+			{
+				duration: 500,
+				easing: 'ease-in-out',
+				pseudoElement: '::view-transition-new(root)',
+			}
+		)
 	}
-	const playThemeTransition = (nextTheme) => {
-		const overlay = overlayRef.current
-		const circle = circleRef.current
-		if (!overlay || !circle) return setTheme(nextTheme)
-		overlay.style.display = 'block'
-		const targetScale = getCoverScale(240) * 1.2
-
-		gsap.set(circle, {
-			scale: 0.001,
-			opacity: 0,
-			backgroundColor: nextTheme === 'dark' ? '#000' : '#fff',
-			filter: 'blur(0px)',
-			y: window.innerHeight * 0.6,
-		})
-
-		const tl = gsap.timeline()
-		tl.to(circle, {
-			duration: 1.2,
-			ease: 'sine.inOut',
-			scale: targetScale,
-			opacity: 0.2,
-			filter: 'blur(30px)',
-			y: -window.innerHeight * 0.6,
-		}, 0)
-			.add(() => setTheme(nextTheme), 0.6)
-			.to(circle, {
-				duration: 0.4,
-				ease: 'sine.out',
-				opacity: 0,
-				filter: 'blur(50px)'
-			}, 1.2)
-			.set(overlay, { display: 'none' })
-	}
-
-	const toggleTheme = () => playThemeTransition(theme === 'dark' ? 'light' : 'dark')
 
 	const getProjectsGridClass = () => {
 		if (isListView) return 'flex flex-col gap-[0.5cm]'
@@ -150,13 +140,11 @@ export default function App() {
 		<div
 			className={`flex flex-col min-h-screen transition-colors duration-300 ${theme === 'dark' ? 'bg-black text-white' : 'bg-white text-black'}`}
 		>
-			{/* Theme transition blur overlay */}
-			<div ref={overlayRef} className="pointer-events-none fixed inset-0 z-[999] hidden">
-				<div ref={circleRef} className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[240px] h-[240px] rounded-full backdrop-blur-2xl" />
-			</div>
+			{/* Theme transition blur overlay removed */}
 
 			{/* Theme toggle button */}
 			<div
+				ref={themeButtonRef}
 				className="fixed z-[1000]"
 				style={{
 					right: 'max(16px, env(safe-area-inset-right))',
@@ -195,9 +183,9 @@ export default function App() {
 							21, <Typewriter words={["Full Stack Developer", "Tech Nerd", "Software Engineer", "Sleepy"]} />
 						</p>
 						<p className="text-base text-gray-500 dark:text-gray-400 ">
-							Full stack developer with really good OCD which means you won't lose any feature or aesthetics. Currently, looking to start as Software Developer. Meanwhile I am building MockMate.</p>
-						<p className="text-base text-gray-500 dark:text-gray-400 opacity-95">
-							Apart from work, you will find me asleep. You can always reach me at <span className="font-semibold text-black dark:text-white border-b-2 border-blue-500">thirunalveliakhil@gmail.com</span>.
+							Full stack developer with really good OCD which means you won't lose any feature or aesthetics. Currently, looking to start as Software Developer. Meanwhile I am building MockMate (v1.3).</p>
+						<p className="text-base text-gray-500 dark:text-gray-400 opacity-95 select-none">
+							Apart from work, you will find me asleep. You can always reach me at <span className="font-semibold text-black dark:text-white border-b-2 border-blue-500 select-text">thirunalveliakhil@gmail.com</span>.
 						</p>
 					</section>
 
@@ -243,7 +231,7 @@ export default function App() {
 								<p className="text-gray-500 dark:text-gray-400 opacity-70">SDE Intern</p>
 							</div>
 							<div>
-								<p className="font-bold text-lg">Google Developer Group</p>
+								<p className="font-bold text-lg">Google Developer Groups</p>
 								<p className="text-gray-500 dark:text-gray-400 opacity-70">Non Technical Lead</p>
 							</div>
 						</div>
@@ -363,9 +351,13 @@ export default function App() {
 			{!isMobile && (
 				<footer
 					className={`w-full blur-gradient-bottom ${theme === 'dark'
-						? 'bg-gradient-to-b from-gray-900 via-[#1a1a40] via-[#0f1030] to-[#0b2b6b]'
-						: 'bg-gradient-to-b from-gray-100 via-blue-200 via-blue-100 to-[#93b4f5]'
+						? 'bg-gradient-to-b from-black via-[#1a1a40] via-[#0f1030] to-[#0b2b6b]'
+						: 'bg-gradient-to-b from-white via-blue-200 via-blue-100 to-[#93b4f5]'
 						} flex items-end justify-center pt-20 pb-0 mt-10 relative overflow-hidden`}
+					style={{
+						maskImage: 'linear-gradient(to bottom, transparent, #08090A 15%)',
+						WebkitMaskImage: 'linear-gradient(to bottom, transparent, #08090A 15%)'
+					}}
 				>
 					<h2
 						className="select-none text-center font-black text-white leading-none mb-[-50px] relative z-10"
