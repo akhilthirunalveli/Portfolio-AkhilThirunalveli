@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        color-scheme: dark;
+    }
+
+    /* Dark theme defaults */
+    body {
+        background-color: #08090a;
+        color: rgba(255, 255, 255, 0.95);
+        font-family: 'Bricolage Grotesque', 'Quicksand', system-ui, Avenir, Helvetica, Arial, sans-serif;
+    }
+
+
+    /* Hide scrollbars globally but keep scrolling enabled */
+    * {
+        -ms-overflow-style: none;
+        /* IE and Edge */
+        scrollbar-width: none;
+        /* Firefox */
+    }
+
+    *::-webkit-scrollbar {
+        display: none;
+        /* Chrome, Safari, Opera */
+    }
+
+    /* Disable text selection across the whole page */
+    *,
+    *::before,
+    *::after {
+        -webkit-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        -webkit-touch-callout: none;
+    }
+
+    /* If you ever add inputs/textareas and want them selectable, uncomment below */
+    /* input, textarea { user-select: text; -webkit-user-select: text; } */
+}
