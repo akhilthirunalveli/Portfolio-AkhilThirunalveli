@@ -1,19 +1,21 @@
 import React, { useState } from 'react';
 import PresentationCard from './components/PresentationCard';
-import PresentationViewer from './components/PresentationViewer';
 import SwipeDeck from './components/SwipeDeck';
 import './index.css'
+
+// Lazy load the viewer to avoid loading PDF.js on initial load
+const PresentationViewer = React.lazy(() => import('./components/PresentationViewer'));
 
 export default function App() {
   const [selectedPresentation, setSelectedPresentation] = useState(null)
 
   const presentations = [
-    { title: "Dashboard Design", company: "Xeno", fileName: "Dashboard Design_Xeno.pdf" },
-    { title: "AI Loan Writing Research", company: "Hyperverge AI", fileName: "AI Loan Writing Research_Hyperverge AI.pdf" },
-    { title: "Market Research", company: "ABinBev", fileName: "Market Research_ABinBev.pdf" },
-    { title: "Feature Implementation", company: "Nubra", fileName: "Feature Implementation_Nubra.pdf" },
-    { title: "Smart Accessibility Certification System", company: "Aptiv", fileName: "Smart Accessibility Certification System_Aptiv.pdf" },
-    { title: "App Catalog Case Study", company: "Zluri", fileName: "App Catalog Case Study_Zluri.pdf" },
+    { title: "Dashboard Design", company: "Xeno", fileName: "Dashboard Design_Xeno.pdf", thumbnail: "/thumbnails/Dashboard Design_Xeno.png" },
+    { title: "AI Loan Writing Research", company: "Hyperverge AI", fileName: "AI Loan Writing Research_Hyperverge AI.pdf", thumbnail: "/thumbnails/AI Loan Writing Research_Hyperverge AI.png" },
+    { title: "Market Research", company: "ABinBev", fileName: "Market Research_ABinBev.pdf", thumbnail: "/thumbnails/Market Research_ABinBev.png" },
+    { title: "Feature Implementation", company: "Nubra", fileName: "Feature Implementation_Nubra.pdf", thumbnail: "/thumbnails/Feature Implementation_Nubra.png" },
+    { title: "Smart Accessibility Certification System", company: "Aptiv", fileName: "Smart Accessibility Certification System_Aptiv.pdf", thumbnail: "/thumbnails/Smart Accessibility Certification System_Aptiv.png" },
+    { title: "App Catalog Case Study", company: "Zluri", fileName: "App Catalog Case Study_Zluri.pdf", thumbnail: "/thumbnails/App Catalog Case Study_Zluri.png" },
   ]
 
   return (
@@ -43,6 +45,7 @@ export default function App() {
                 title={pres.title}
                 company={pres.company}
                 fileName={pres.fileName}
+                thumbnail={pres.thumbnail}
                 onClick={() => setSelectedPresentation(pres)}
               />
             ))}
@@ -58,12 +61,18 @@ export default function App() {
         </div>
       </div>
 
-      {/* Viewer Modal */}
+      {/* Viewer Modal - loaded lazily */}
       {selectedPresentation && (
-        <PresentationViewer
-          presentation={selectedPresentation}
-          onClose={() => setSelectedPresentation(null)}
-        />
+        <React.Suspense fallback={
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-zinc-950 text-white">
+            <div className="animate-pulse">Loading Viewer...</div>
+          </div>
+        }>
+          <PresentationViewer
+            presentation={selectedPresentation}
+            onClose={() => setSelectedPresentation(null)}
+          />
+        </React.Suspense>
       )}
     </div>
   )

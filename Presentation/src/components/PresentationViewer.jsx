@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Document, Page, pdfjs } from 'react-pdf';
 import { motion } from 'framer-motion';
-import { IoArrowBack, IoDownload } from 'react-icons/io5';
+import { IoArrowBack } from 'react-icons/io5';
 
 // Ensure worker is configured (if not already by PresentationCard)
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
@@ -34,16 +34,8 @@ export default function PresentationViewer({ presentation, onClose }) {
                 <h2 className="text-base md:text-lg font-semibold text-white truncate max-w-[200px] md:max-w-md mx-2 md:mx-4 flex-1 text-center">
                     {presentation.title}
                 </h2>
-
-                <a
-                    href={`/presentations/${presentation.fileName}`}
-                    download={presentation.fileName}
-                    className="flex items-center gap-2 text-white/70 hover:text-white transition-colors px-2 py-1.5 md:px-3 rounded-lg hover:bg-white/5"
-                    aria-label="Download Presentation"
-                >
-                    <span className="font-medium hidden md:inline">Download</span>
-                    <IoDownload size={20} />
-                </a>
+                <div className="w-8 md:w-24 hidden md:block" /> {/* Spacer for centering on desktop, hidden/small on mobile to allow title center */}
+                <div className="w-8 md:hidden" /> {/* Small spacer to balance the back button on mobile */}
             </div>
 
             {/* Viewer */}
