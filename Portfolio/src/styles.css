@@ -1,8 +1,27 @@
 /* Add this to your existing CSS file or create a new one */
-body, html {
+body,
+html {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
   width: 100%;
 }
 
+.skill-pill {
+  position: relative;
+  overflow: hidden;
+  background-color: black;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  cursor: default;
+  transition: all 0.3s ease;
+  display: inline-block;
+  /* Ensure it respects padding/dimensions */
+}
+
+.skill-pill:hover {
+  background-color: black;
+  background-size: 100% 100%;
+  transform: translateY(-3px);
+}

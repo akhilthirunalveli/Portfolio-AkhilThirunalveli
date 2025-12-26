@@ -1,8 +1,9 @@
 import React, { useRef, useState, useEffect } from 'react'
+import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion'
 import { flushSync } from 'react-dom'
 import { gsap } from 'gsap'
 import Typewriter from './Typewriter'
-import { IoGridOutline, IoDocumentText } from "react-icons/io5"
+import { IoGrid, IoDocumentText, IoList } from "react-icons/io5"
 import "@theme-toggles/react/css/Expand.css"
 import { Expand } from "@theme-toggles/react"
 import './styles.css'
@@ -51,6 +52,9 @@ export default function App() {
 	const dragRef = useRef(null)
 	const dragOffset = useRef({ x: 0, y: 0 })
 	const themeButtonRef = useRef(null)
+
+	const { scrollYProgress } = useScroll()
+	const footerY = useTransform(scrollYProgress, [0.75, 1], ['100%', '0%'])
 
 	useEffect(() => {
 		document.documentElement.classList.toggle('dark', theme === 'dark')
@@ -178,14 +182,14 @@ export default function App() {
 				<div className="w-full max-w-[15cm] px-6 sm:px-6 py-12 space-y-12 mx-auto">
 					{/* Intro */}
 					<section className="space-y-3 text-left">
-						<h1 className="text-4xl font-semibold">Akhil Thirunalveli</h1>
+						<h1 className="text-4xl font-semibold mt-[1.7cm]">Akhil Thirunalveli</h1>
 						<p className="text-lg text-gray-500 dark:text-gray-400">
 							21, <Typewriter words={["Full Stack Developer", "Tech Nerd", "Software Engineer", "Sleepy"]} />
 						</p>
-						<p className="text-base text-gray-500 dark:text-gray-400 ">
+						<p className="text-base text-gray-500 dark:text-gray-400 opacity-85">
 							Full stack developer with really good OCD which means you won't lose any feature or aesthetics. Currently, looking to start as Software Developer. Meanwhile I am building MockMate (v1.3).</p>
-						<p className="text-base text-gray-500 dark:text-gray-400 opacity-95 select-none">
-							Apart from work, you will find me asleep. You can always reach me at <span className="font-semibold text-black dark:text-white border-b-2 border-blue-500 select-text">thirunalveliakhil@gmail.com</span>.
+						<p className="text-base text-gray-500 dark:text-gray-400 opacity-85 select-none">
+							Apart from work, you will find me tinkering on <a href="https://github.com/akhilthirunalveli" target="_blank" rel="noopener noreferrer" className="inline-block opacity-50 hover:opacity-100 transition-opacity align-middle" style={{ color: theme === 'dark' ? 'white' : 'black' }}><FaGithub className="inline" /></a> Github. You can always reach me at <span className="font-semibold text-black dark:text-white border-b-2 border-blue-500 select-text">thirunalveliakhil@gmail.com</span>.
 						</p>
 					</section>
 
@@ -196,23 +200,17 @@ export default function App() {
 								'React',
 								'Node.js',
 								'React Native',
-								'MySQL',
+								'Python',
 								'PostgreSQL',
 								'MongoDB',
-								'Firebase',
+								'GCP',
 								'AWS',
 								'Docker',
 							].map(skill => (
 								<span key={skill} className="skill-pill" style={{
-									padding: '0.5rem 1rem',
-									borderRadius: '999px',
-									background: theme === 'dark' ? 'black' : 'black',
-									color: 'white',
 									fontWeight: 500,
 									fontSize: '0.95rem',
 									marginBottom: '0.25rem',
-									transition: 'transform 0.3s, box-shadow 0.3s',
-									cursor: 'default',
 								}}>{skill}</span>
 							))}
 						</div>
@@ -224,15 +222,15 @@ export default function App() {
 						<div className="space-y-4">
 							<div>
 								<p className="font-bold text-lg">Graduating College</p>
-								<p className="text-gray-500 dark:text-gray-400 opacity-70">B.Tech in CSE, Sep 2022 - Jun 2026</p>
+								<p className="text-gray-500 dark:text-gray-400 opacity-50">B.Tech in CSE, Sep 2022 - Jun 2026</p>
 							</div>
 							<div>
 								<p className="font-bold text-lg">SBI Foundations</p>
-								<p className="text-gray-500 dark:text-gray-400 opacity-70">SDE Intern</p>
+								<p className="text-gray-500 dark:text-gray-400 opacity-50"> Ex - SDE Intern</p>
 							</div>
 							<div>
 								<p className="font-bold text-lg">Google Developer Groups</p>
-								<p className="text-gray-500 dark:text-gray-400 opacity-70">Non Technical Lead</p>
+								<p className="text-gray-500 dark:text-gray-400 opacity-50">Non Technical Lead</p>
 							</div>
 						</div>
 					</section>
@@ -242,26 +240,51 @@ export default function App() {
 						<div className="flex items-center justify-between">
 							<h2 className="text-2xl font-semibold">Projects</h2>
 							<div ref={dragRef} onMouseDown={handleGridMouseDown} className="cursor-grab">
-								<IoGridOutline
-									className={`text-2xl cursor-pointer transition-colors ${isListView
-										? 'text-gray-400 hover:text-black dark:text-gray-600 dark:hover:text-white'
-										: 'text-black hover:text-gray-600 dark:text-white dark:hover:text-gray-400'
-										}`}
-									onClick={toggleView}
-								/>
+								{isListView ? (
+									<IoList
+										className="text-2xl cursor-pointer transition-colors opacity-50 text-black hover:text-gray-600 dark:text-white dark:hover:text-gray-400"
+										onClick={toggleView}
+									/>
+								) : (
+									<IoGrid
+										className="text-2xl cursor-pointer transition-colors opacity-50 text-black hover:text-gray-600 dark:text-white dark:hover:text-gray-400"
+										onClick={toggleView}
+									/>
+								)}
 							</div>
 						</div>
 
-						<div className={getProjectsGridClass()}>
-							<ProjectCard src="/Projects/1.png" alt="MockMate" link="https://mockmateapp.vercel.app/" />
-							<ProjectCard src="/Projects/3.png" alt="NewsSailor" link="https://www.newssailor.com/" />
-							<ProjectCard src="/Projects/2.png" alt="KnowMyStatus" link="https://knowmystatus.vercel.app/" />
-							<ProjectCard src="/Projects/4.png" alt="DraftEngine" link="https://draftengine.vercel.app/" />
-							<ProjectCard src="/Projects/5.png" alt="Mausam" link="https://aajkamausam.vercel.app/" />
-							<ProjectCard src="/Projects/6.png" alt="Exam | VIT" link="https://vitexam.vercel.app/" />
-						</div>
+						<motion.div
+							className={getProjectsGridClass()}
+							layout
+							transition={{ duration: 0.3 }}
+						>
+							<motion.div layout><ProjectCard src="/Projects/1.png" alt="MockMate" link="https://mockmateapp.vercel.app/" /></motion.div>
+							<motion.div layout><ProjectCard src="/Projects/3.png" alt="NewsSailor" link="https://www.newssailor.com/" /></motion.div>
+							<motion.div layout><ProjectCard src="/Projects/2.png" alt="KnowMyStatus" link="https://knowmystatus.vercel.app/" /></motion.div>
+							<motion.div layout><ProjectCard src="/Projects/4.png" alt="DraftEngine" link="https://draftengine.vercel.app/" /></motion.div>
+							<motion.div layout><ProjectCard src="/Projects/5.png" alt="Mausam" link="https://aajkamausam.vercel.app/" /></motion.div>
+							<motion.div layout><ProjectCard src="/Projects/6.png" alt="Exam | VIT" link="https://vitexam.vercel.app/" /></motion.div>
+						</motion.div>
+					</section>
 
-						{/* Dock below projects */}
+					<section className="space-y-8 text-left">
+						<div className="flex items-center mt-[0.5cm] justify-between">
+							<h2 className="text-2xl font-semibold">Presentations</h2>
+						</div>
+						<motion.div
+							className="grid grid-cols-1 gap-[0.5cm]"
+							layout
+							transition={{ duration: 0.3 }}
+						>
+							<motion.div layout>
+								<ProjectCard src="/Projects/Deckroom.png" alt="Deckroom" link="https://presentations.akhil.world" />
+							</motion.div>
+						</motion.div>
+					</section>
+
+					{/* Dock below projects */}
+					<section className="space-y-6">
 						<div className="flex w-full justify-center mt-[1cm]">
 							<Dock direction="middle" iconSize={40} iconMagnification={64} iconDistance={140} className="text-black dark:text-white">
 								{/* Resume with static label beside icon (no underline) */}
@@ -359,17 +382,18 @@ export default function App() {
 						WebkitMaskImage: 'linear-gradient(to bottom, transparent, #08090A 15%)'
 					}}
 				>
-					<h2
+					<motion.h2
 						className="select-none text-center font-black text-white leading-none mb-[-50px] relative z-10"
 						style={{
 							fontSize: 'clamp(4rem, 20vw, 18rem)',
 							letterSpacing: '0.05em',
 							opacity: theme === 'dark' ? 0.1 : 0.2,
+							y: footerY,
 						}}
 						aria-hidden="true"
 					>
 						AKHIL
-					</h2>
+					</motion.h2>
 				</footer>
 			)}
 		</div>
