@@ -1,7 +1,4 @@
 import React, { useState } from 'react';
-
-// PDF Worker config removed as we use images now
-
 export default function PresentationCard({ title, company, fileName, thumbnail, onClick }) {
     const [numPages, setNumPages] = useState(null);
 
@@ -16,25 +13,19 @@ export default function PresentationCard({ title, company, fileName, thumbnail, 
 
 
         >
-            {/* Subtle Gradient Background */}
             <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-
-            {/* Glow Effect */}
             <div className="absolute -inset-1 bg-gradient-to-r from-purple-500/20 to-blue-500/20 rounded-3xl opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-500" />
-
             <div className="relative p-4 md:p-5 flex flex-col md:items-start md:grid md:grid-cols-[2fr,3fr] gap-6 md:gap-10">
-
-                {/* Thumbnail Container - Tilted 3D effect on hover */}
                 <div className="w-full relative aspect-video rounded-xl overflow-hidden shadow-2xl bg-zinc-800 border border-black/5 hover:border-black/20 group-hover:scale-[1.03] group-hover:-rotate-1 transition-all duration-500 ease-out perspective-1000">
                     <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent z-10" />
                     <img
                         src={thumbnail || `/thumbnails/${fileName.replace('.pdf', '.png')}`}
                         alt={title}
+                        loading="lazy"
+                        decoding="async"
                         className="w-full h-full object-cover object-top"
                     />
                 </div>
-
-                {/* Content */}
                 <div className="flex flex-col justify-center space-y-5 h-full py-2">
                     <h3 className="text-2xl md:text-3xl font-light tracking-wide text-white group-hover:text-purple-100 transition-colors duration-300">
                         {title}

@@ -3,7 +3,6 @@ import { Document, Page, pdfjs } from 'react-pdf';
 import { motion } from 'framer-motion';
 import { IoArrowBack } from 'react-icons/io5';
 
-// Ensure worker is configured (if not already by PresentationCard)
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
 export default function PresentationViewer({ presentation, onClose }) {
@@ -21,7 +20,6 @@ export default function PresentationViewer({ presentation, onClose }) {
             exit={{ opacity: 0, y: 20 }}
             className="fixed inset-0 z-50 flex flex-col bg-zinc-950"
         >
-            {/* Header */}
             <div className="flex items-center justify-between px-4 py-3 md:px-6 md:py-4 bg-zinc-900/50 backdrop-blur-md border-b border-gray-800/10 sticky top-0 z-10 transition-all duration-300">
                 <button
                     onClick={onClose}
@@ -34,11 +32,10 @@ export default function PresentationViewer({ presentation, onClose }) {
                 <h2 className="text-base md:text-lg font-semibold text-white truncate max-w-[200px] md:max-w-md mx-2 md:mx-4 flex-1 text-center">
                     {presentation.title}
                 </h2>
-                <div className="w-8 md:w-24 hidden md:block" /> {/* Spacer for centering on desktop, hidden/small on mobile to allow title center */}
-                <div className="w-8 md:hidden" /> {/* Small spacer to balance the back button on mobile */}
+                <div className="w-8 md:w-24 hidden md:block" />
+                <div className="w-8 md:hidden" />
             </div>
 
-            {/* Viewer */}
             <div className="flex-1 overflow-y-auto overflow-x-hidden p-8 flex justify-center bg-zinc-950">
                 <div className="max-w-4xl w-full">
                     <Document
@@ -60,7 +57,7 @@ export default function PresentationViewer({ presentation, onClose }) {
                                     pageNumber={index + 1}
                                     renderTextLayer={false}
                                     renderAnnotationLayer={false}
-                                    width={Math.min(window.innerWidth * 0.9, 1000)} // Responsive width
+                                    width={Math.min(window.innerWidth * 0.9, 1000)}
                                     className="bg-white"
                                 />
                             </div>
