@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { ScaleLoader } from 'react-spinners';
 import PresentationCard from './components/PresentationCard';
 import SwipeDeck from './components/SwipeDeck';
 import './index.css'
@@ -65,7 +66,7 @@ export default function App() {
       {selectedPresentation && (
         <React.Suspense fallback={
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-zinc-950 text-white">
-            <div className="animate-pulse">Loading Viewer...</div>
+            <ScaleLoader color="#ffffff" />
           </div>
         }>
           <PresentationViewer

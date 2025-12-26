@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Document, Page, pdfjs } from 'react-pdf';
+import { ScaleLoader } from 'react-spinners';
 import { motion } from 'framer-motion';
 import { IoArrowBack } from 'react-icons/io5';
 
@@ -43,8 +44,8 @@ export default function PresentationViewer({ presentation, onClose }) {
                         onLoadSuccess={onDocumentLoadSuccess}
                         className="flex flex-col items-center gap-8 pb-20"
                         loading={
-                            <div className="text-white/50 animate-pulse flex flex-col items-center mt-20">
-                                Loading Presentation...
+                            <div className="flex justify-center mt-20">
+                                <ScaleLoader color="#ffffffdf" />
                             </div>
                         }
                     >
