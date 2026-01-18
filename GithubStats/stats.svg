@@ -25,7 +25,7 @@
         <!-- Group 1 -->
         <text x="100" y="50" text-anchor="middle" class="icon">🔥</text>
         <text x="100" y="85" text-anchor="middle" class="label">Current Streak</text>
-        <text x="100" y="120" text-anchor="middle" class="value">3</text>
+        <text x="100" y="120" text-anchor="middle" class="value">4</text>
         
         <!-- Divider (except for last item) -->
         <path class="divider" d="M200 40 L200 110" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.3" />
@@ -34,7 +34,7 @@
         <!-- Group 2 -->
         <text x="300" y="50" text-anchor="middle" class="icon">🏆</text>
         <text x="300" y="85" text-anchor="middle" class="label">Longest Streak</text>
-        <text x="300" y="120" text-anchor="middle" class="value">93</text>
+        <text x="300" y="120" text-anchor="middle" class="value">13</text>
         
         <!-- Divider (except for last item) -->
         <path class="divider" d="M400 40 L400 110" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.3" />
@@ -43,7 +43,7 @@
         <!-- Group 3 -->
         <text x="500" y="50" text-anchor="middle" class="icon">📅</text>
         <text x="500" y="85" text-anchor="middle" class="label">Total 2026</text>
-        <text x="500" y="120" text-anchor="middle" class="value">67</text>
+        <text x="500" y="120" text-anchor="middle" class="value">70</text>
         
         <!-- Divider (except for last item) -->
         <path class="divider" d="M600 40 L600 110" stroke="#cbd5e1" stroke-width="1" stroke-linecap="round" opacity="0.3" />
@@ -52,7 +52,7 @@
         <!-- Group 4 -->
         <text x="700" y="50" text-anchor="middle" class="icon">⏪</text>
         <text x="700" y="85" text-anchor="middle" class="label">Total 2025</text>
-        <text x="700" y="120" text-anchor="middle" class="value">526</text>
+        <text x="700" y="120" text-anchor="middle" class="value">524</text>
         
         <!-- Divider (except for last item) -->
         
