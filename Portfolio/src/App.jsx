@@ -216,6 +216,7 @@ export default function App() {
 						</div>
 					</section>
 
+
 					{/* Career */}
 					<section className="space-y-6 text-left">
 						<h2 className="text-2xl font-semibold">Career</h2>
