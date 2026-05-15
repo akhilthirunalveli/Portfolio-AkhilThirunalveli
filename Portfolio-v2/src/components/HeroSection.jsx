@@ -18,16 +18,16 @@ export default function HeroSection() {
       <div className="hero__name-block">
         <h1 className="hero__name">
           <span className="hero__name-line">{personalInfo.firstName}</span>
-          <span className="hero__name-line" style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+          <span className="hero__name-line" style={{ display: "flex", alignItems: "center", gap: "0.2rem" }}>
             {personalInfo.lastName}
-            <button 
-              onClick={playPronunciation} 
+            <button
+              onClick={playPronunciation}
               aria-label="Listen to pronunciation"
               style={{
                 background: "transparent",
                 border: "none",
                 cursor: "pointer",
-                padding: "8px",
+                padding: "1px",
                 display: "inline-flex",
                 alignItems: "center",
                 color: "var(--ink)",
@@ -37,7 +37,7 @@ export default function HeroSection() {
               onMouseEnter={(e) => e.currentTarget.style.opacity = 1}
               onMouseLeave={(e) => e.currentTarget.style.opacity = 0.5}
             >
-              <Volume2 size={28} />
+              <Volume2 size={24} />
             </button>
             <audio ref={audioRef} src="/Voice/AkhilThirunalveli_Voiceover.mp3" preload="auto" />
           </span>

@@ -10,14 +10,14 @@ export default function EducationSection() {
           <article key={edu.id} className="education-card">
             <div className="education-card__header">
               <h3 className="education-card__degree">{edu.degree}</h3>
-              <div className="education-card__header-meta">
-                {edu.grade && (
-                  <span className="education-card__grade">{edu.grade}</span>
-                )}
-                <span className="education-card__duration">{edu.duration}</span>
-              </div>
+              <span className="education-card__duration">{edu.duration}</span>
             </div>
-            <p className="education-card__field">{edu.field}</p>
+            <div className="education-card__field-row">
+              <span className="education-card__field">{edu.field}</span>
+              {edu.grade && (
+                <span className="education-card__grade">{edu.grade}</span>
+              )}
+            </div>
             <p className="education-card__institution">{edu.institution}</p>
           </article>
         ))}

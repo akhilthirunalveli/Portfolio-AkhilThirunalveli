@@ -387,6 +387,7 @@ a {
     transform: scale(0.95);
     opacity: 0;
   }
+
   to {
     transform: scale(1);
     opacity: 1;
@@ -1025,10 +1026,19 @@ a {
   color: var(--ink-mute);
 }
 
+.education-card__field-row {
+  display: flex !important;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 12px;
+  margin: 0 0 4px;
+}
+
 .education-card__field {
   font-size: 0.95rem;
   color: var(--ink-soft);
-  margin: 0 0 4px;
+  margin: 0;
+  display: inline-block;
 }
 
 .education-card__institution {
