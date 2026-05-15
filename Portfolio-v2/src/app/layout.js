@@ -25,15 +25,25 @@ const jetBrainsMono = JetBrains_Mono({
 export const metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Akhil Thirunalveli | AI & Full Stack Engineer",
+    default: "Akhil Thirunalveli - AI & Full Stack Engineer",
     template: `%s | Akhil Thirunalveli`,
   },
   description:
-    "Portfolio of Akhil Thirunalveli, an AI & Full Stack Engineer passionate about crafting scalable web applications and intelligent solutions.",
+    "Portfolio of Akhil Thirunalveli — AI & Full Stack Engineer passionate about crafting scalable web applications and intelligent solutions.",
   applicationName: "Akhil's Portfolio",
   authors: [{ name: "Akhil Thirunalveli" }],
   creator: "Akhil Thirunalveli",
   publisher: "Akhil Thirunalveli",
+  icons: {
+    icon: [
+      { url: "/favicon/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+    ],
+    apple: "/favicon/apple-touch-icon.png",
+    other: [
+      { rel: "manifest", url: "/favicon/site.webmanifest" },
+    ],
+  },
   alternates: {
     canonical: "/",
   },
@@ -42,9 +52,9 @@ export const metadata = {
     locale: "en_US",
     url: siteUrl,
     siteName: "Akhil Thirunalveli",
-    title: "Akhil Thirunalveli | AI & Full Stack Engineer",
+    title: "Akhil Thirunalveli - AI & Full Stack Engineer",
     description:
-      "Explore the projects, skills, and experience of Akhil Thirunalveli, an AI & Full Stack Engineer.",
+      "Explore the projects, skills, and experience of Akhil Thirunalveli — AI & Full Stack Engineer.",
     images: [
       {
         url: "/opengraph-image",
@@ -56,9 +66,9 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Akhil Thirunalveli | AI & Full Stack Engineer",
+    title: "Akhil Thirunalveli - AI & Full Stack Engineer",
     description:
-      "Portfolio of Akhil Thirunalveli, an AI & Full Stack Engineer passionate about crafting scalable web applications and intelligent solutions.",
+      "Portfolio of Akhil Thirunalveli — AI & Full Stack Engineer passionate about crafting scalable web applications and intelligent solutions.",
     images: ["/twitter-image"],
   },
   robots: {
