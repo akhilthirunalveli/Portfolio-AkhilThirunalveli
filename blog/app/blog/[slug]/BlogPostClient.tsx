@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useRef, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { ArrowLeft, Eye, Clock, CalendarBlank } from "@phosphor-icons/react";
 import type { BlogPost } from "@/lib/blog-types";
@@ -60,7 +60,7 @@ function parseMarkdown(content: string): string {
     }
   );
 
-  // Headings — add IDs for TOC linking
+  // Headings - add IDs for TOC linking
   html = html.replace(/^### (.+)$/gm, (_match, text) => {
     const id = text
       .toLowerCase()
@@ -115,7 +115,7 @@ function parseMarkdown(content: string): string {
     }
   );
 
-  // Paragraphs — wrap remaining standalone lines
+  // Paragraphs - wrap remaining standalone lines
   html = html
     .split("\n\n")
     .map((block: string) => {
@@ -166,8 +166,6 @@ export default function BlogPostClient({ post }: { post: BlogPost }) {
   const htmlContent = useMemo(() => parseMarkdown(post.content), [post.content]);
 
   const [activeId, setActiveId] = useState<string>("");
-  const [scrollProgress, setScrollProgress] = useState(0);
-  const tocRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -177,18 +175,14 @@ export default function BlogPostClient({ post }: { post: BlogPost }) {
 
       if (headingElements.length === 0) return;
 
-      // Check if user scrolled to the bottom of the page
       const atBottom =
         window.innerHeight + window.scrollY >= document.body.scrollHeight - 60;
-x
+
       if (atBottom) {
-        // At bottom → activate last item
         setActiveId(headingElements[headingElements.length - 1].id);
         return;
       }
 
-      // Walk through ALL headings (don't break early) to find the last
-      // one whose top has passed the threshold
       let found = headingElements[0].id;
       for (const el of headingElements) {
         if (el.getBoundingClientRect().top <= 140) {
@@ -204,14 +198,6 @@ x
 
     return () => window.removeEventListener("scroll", handleScroll);
   }, [tocItems]);
-
-  // Calculate progress for the timeline line
-  useEffect(() => {
-    const activeIndex = tocItems.findIndex((item) => item.id === activeId);
-    if (activeIndex >= 0 && tocItems.length > 1) {
-      setScrollProgress(((activeIndex + 1) / tocItems.length) * 100);
-    }
-  }, [activeId, tocItems]);
 
   return (
     <div className="post-page">
@@ -239,33 +225,27 @@ x
         />
       </article>
 
-      {/* ─── Table of Contents Sidebar ─── */}
-      <aside className="toc-sidebar" ref={tocRef}>
-        <p className="toc-sidebar__label">Table of Contents</p>
-        <nav className="toc-timeline">
-          <div
-            className="toc-timeline__progress"
-            style={{ height: `${scrollProgress}%` }}
-          />
-          {tocItems.map((item) => (
-            <div
-              key={item.id}
-              className={`toc-item ${
-                activeId === item.id ? "toc-item--active" : ""
-              }`}
-            >
-              <a
-                href={`#${item.id}`}
-                className={`toc-link ${
-                  item.level === 3 ? "toc-link--h3" : ""
-                }`}
-              >
-                {item.text}
-              </a>
-            </div>
-          ))}
-        </nav>
-      </aside>
+      {tocItems.length > 0 && (
+        <aside className="toc-sidebar">
+          <div className="toc-card">
+            <p className="toc-sidebar__label">On this page</p>
+            <nav className="toc-list" aria-label="Table of contents">
+              {tocItems.map((item) => (
+                <a
+                  key={item.id}
+                  href={`#${item.id}`}
+                  className={`toc-link ${
+                    item.level === 3 ? "toc-link--h3" : ""
+                  } ${activeId === item.id ? "toc-link--active" : ""}`.trim()}
+                >
+                  <span className="toc-link__indicator" aria-hidden="true" />
+                  <span>{item.text}</span>
+                </a>
+              ))}
+            </nav>
+          </div>
+        </aside>
+      )}
     </div>
   );
 }
