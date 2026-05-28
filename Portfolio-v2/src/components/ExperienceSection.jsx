@@ -1,15 +1,15 @@
 import SectionHeading from "./SectionHeading";
 import { experienceData } from "@/data/portfolio";
-import { MapPin } from "lucide-react";
+import { MapPin, Briefcase } from "lucide-react";
 
 export default function ExperienceSection() {
   return (
-    <section 
-      id="experience" 
-      className="portfolio-section" 
+    <section
+      id="experience"
+      className="portfolio-section"
       style={{ position: "relative", zIndex: 1 }}
     >
-      <div 
+      <div
         aria-hidden="true"
         style={{
           position: "absolute",
@@ -19,44 +19,63 @@ export default function ExperienceSection() {
           right: 0,
           backgroundColor: "var(--bg)",
           zIndex: -1,
-          pointerEvents: "none"
+          pointerEvents: "none",
         }}
       />
       <SectionHeading number="01" title="Experience" id="experience-heading" />
-      <div className="timeline">
-        {experienceData.map((exp) => (
-          <article key={exp.id} className="timeline__item">
-            <div className="timeline__marker" aria-hidden="true" />
+      <div className="exp-timeline">
+        {experienceData.map((exp, index) => (
+          <article key={exp.id} className="exp-card">
+            {/* Left accent bar */}
+            <div className="exp-card__accent" aria-hidden="true" />
 
-            <div className="timeline__header">
-              <h3 className="timeline__role">{exp.role}</h3>
-              <span className="timeline__duration">{exp.duration}</span>
+            {/* Step number */}
+            <div className="exp-card__step" aria-hidden="true">
+              {String(index + 1).padStart(2, "0")}
             </div>
 
-            <div className="timeline__meta">
-              <a href={exp.companyUrl} className="timeline__company" target="_blank" rel="noopener noreferrer">
-                {exp.company} ↗
-              </a>
-              {exp.type && <span className="timeline__sep">·</span>}
-              {exp.type && <span className="timeline__type">{exp.type}</span>}
-              {exp.location && <span className="timeline__sep">·</span>}
-              {exp.location && (
-                <span className="timeline__location">
-                  <MapPin size={11} /> {exp.location}
-                </span>
-              )}
-            </div>
+            {/* Content */}
+            <div className="exp-card__body">
+              <div className="exp-card__top">
+                <div className="exp-card__title-group">
+                  <h3 className="exp-card__role">{exp.role}</h3>
+                  <div className="exp-card__meta">
+                    <a
+                      href={exp.companyUrl}
+                      className="exp-card__company"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {exp.company}
+                    </a>
+                    {exp.type && (
+                      <span className="exp-card__type">{exp.type}</span>
+                    )}
+                  </div>
+                </div>
+                <div className="exp-card__right-meta">
+                  <span className="exp-card__duration">{exp.duration}</span>
+                  {exp.location && (
+                    <span className="exp-card__location">
+                      <MapPin size={11} /> {exp.location}
+                    </span>
+                  )}
+                </div>
+              </div>
 
-            <ul className="timeline__bullets">
-              {exp.bullets?.map((b, i) => (
-                <li key={i}>{b}</li>
-              ))}
-            </ul>
+              <ul className="exp-card__bullets">
+                {exp.bullets?.map((b, i) => (
+                  <li key={i}>{b}</li>
+                ))}
+              </ul>
 
-            <div className="timeline__tags">
-              {exp.tags?.map((tag) => (
-                <span key={tag} className="tag">{tag}</span>
-              ))}
+              <div className="exp-card__tags">
+                {exp.tags?.map((tag) => (
+                  <span key={tag} className="tag tag--accent">
+                    {tag}
+                  </span>
+                ))}
+              </div>
             </div>
           </article>
         ))}

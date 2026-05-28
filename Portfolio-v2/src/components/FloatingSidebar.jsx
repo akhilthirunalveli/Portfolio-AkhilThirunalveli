@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
-import { Briefcase, User, Code, Layers, GraduationCap, Trophy, Globe } from "lucide-react";
+import { Briefcase, User, Code, Layers, GraduationCap, Trophy, Globe, Heart } from "lucide-react";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { QrCodeIcon } from "@hugeicons/core-free-icons";
 
@@ -13,6 +13,7 @@ const items = [
   { icon: GraduationCap, href: "#education", label: "Education" },
   { icon: Trophy, href: "#achievements", label: "Achievements" },
   { icon: Globe, href: "#socials", label: "Socials" },
+  { icon: Heart, href: "#final-message", label: "Personal Note" },
 ];
 
 function QrModal({ onClose }) {
@@ -52,7 +53,14 @@ export default function FloatingSidebar() {
   const [showQr, setShowQr] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setVisible(window.scrollY > 300);
+    const onScroll = () => {
+      setVisible(window.scrollY > 300);
+      
+      // Fallback: If user hits the absolute bottom of the page, force activate the final section
+      if (window.innerHeight + Math.round(window.scrollY) >= document.body.offsetHeight - 20) {
+        setActive("#final-message");
+      }
+    };
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
@@ -92,6 +100,7 @@ export default function FloatingSidebar() {
           <a
             key={href}
             href={href}
+            onClick={() => setActive(href)}
             className={`floating-sidebar__item ${active === href ? "floating-sidebar__item--active" : ""}`}
             title={label}
             aria-label={label}

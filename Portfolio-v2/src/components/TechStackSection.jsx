@@ -9,8 +9,6 @@ const techIcons = [
   { name: "JavaScript", slug: "javascript/javascript-original" },
   { name: "TypeScript", slug: "typescript/typescript-original" },
   { name: "Python", slug: "python/python-original" },
-  { name: "LangChain", slug: "", customSrc: "/Logo/langchain-icon.svg" },
-  { name: "RAG", slug: "", customSrc: "/Logo/rag-icon.svg" },
 
   { name: "React", slug: "react/react-original" },
   { name: "Next.js", slug: "nextjs/nextjs-original" },

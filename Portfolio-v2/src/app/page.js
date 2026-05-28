@@ -7,6 +7,7 @@ import TechStackSection from "@/components/TechStackSection";
 import EducationSection from "@/components/EducationSection";
 import AchievementsSection from "@/components/AchievementsSection";
 import SocialsSection from "@/components/SocialsSection";
+import FinalMessageSection from "@/components/FinalMessageSection";
 
 export default function Home() {
   return (
@@ -22,6 +23,7 @@ export default function Home() {
           <EducationSection />
           <AchievementsSection />
           <SocialsSection />
+          <FinalMessageSection />
         </div>
       </main>
     </>

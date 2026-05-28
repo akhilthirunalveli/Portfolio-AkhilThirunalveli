@@ -1,10 +1,12 @@
 "use client";
 import { personalInfo } from "@/data/portfolio";
-import { Volume2 } from "lucide-react";
-import { useRef } from "react";
+import { Volume2, Mail } from "lucide-react";
+import { useRef, useState } from "react";
+import EmailModal from "./EmailModal";
 
 export default function HeroSection() {
   const audioRef = useRef(null);
+  const [isEmailModalOpen, setIsEmailModalOpen] = useState(false);
 
   const playPronunciation = () => {
     if (audioRef.current) {
@@ -50,9 +52,21 @@ export default function HeroSection() {
         </div>
         <div className="hero__actions">
           <a href="#projects" className="btn btn--primary">View Work</a>
-          <a href={personalInfo.resumeUrl} className="btn btn--primary" target="_blank" rel="noopener noreferrer">Resume</a>
+          <div style={{ display: "flex", gap: "10px" }}>
+            <a href={personalInfo.resumeUrl} className="btn btn--primary" target="_blank" rel="noopener noreferrer">Resume</a>
+            <button 
+              onClick={() => setIsEmailModalOpen(true)}
+              className="btn btn--primary" 
+              style={{ padding: "0 14px", display: "flex", alignItems: "center", justifyContent: "center" }}
+              aria-label="Email Me"
+            >
+              <Mail size={18} />
+            </button>
+          </div>
         </div>
       </div>
+      
+      {isEmailModalOpen && <EmailModal onClose={() => setIsEmailModalOpen(false)} />}
     </section>
   );
 }

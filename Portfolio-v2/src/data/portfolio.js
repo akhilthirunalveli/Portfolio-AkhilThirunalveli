@@ -27,7 +27,7 @@ export const experienceData = [
     role: "AI Engineer Intern (Contract)",
     company: "Snorkel AI",
     companyUrl: "https://snorkel.ai",
-    duration: "Present",
+    duration: "Jan – May 2025",
     type: "Internship",
     location: "Redwood City, CA, United States | Remote",
     bullets: [
@@ -44,7 +44,7 @@ export const experienceData = [
     companyUrl: "https://sbifoundation.in",
     duration: "Oct – Dec 2024",
     type: "Internship",
-    location: "Mumbai, Maharashtra, India | On-site",
+    location: "Mumbai, Maharashtra, India | Hybrid",
     bullets: [
       "Engineered an AI-assisted decision pipeline processing 200k+ applications, reducing turnaround time by 85% through automated multi-stage agentic workflows with rule-based scoring and validation layers.",
       "Built anomaly detection and failure triage systems to surface data inconsistencies, ensuring auditability.",
@@ -83,7 +83,7 @@ export const projectsData = [
     description:
       "A CLI-first time-tracking tool for accurate, auditable work logs without bloated GUIs.",
     tags: ["SQLite", "Node.js", "TUI"],
-    thumbnail: "/Projects/TIckr.png",
+    thumbnail: "/Projects/TIckr.png?v=2",
     liveUrl: "https://tickr-cli.vercel.app/",
     repoUrl: "https://github.com/akhilthirunalveli/Tickr",
     users: "In collab with Fiverr",
@@ -138,6 +138,7 @@ export const educationData = [
     institution: "Vellore Institute of Technology",
     duration: "2022 – 2026",
     grade: "CGPA: 8.65 / 10",
+    certificateUrl: "/Certificate/PD.png",
   },
   // Add more entries as needed
 ];

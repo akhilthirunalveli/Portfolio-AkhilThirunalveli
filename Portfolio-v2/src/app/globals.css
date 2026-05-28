@@ -539,134 +539,215 @@ a {
   padding: 4px 10px;
   background: var(--bg-surface);
   color: var(--ink-soft);
-  border: 1px solid var(--rule-soft);
+  border: 1px solid var(--bg-surface-hover);
   letter-spacing: 0.02em;
 }
 
 .tag--accent {
-  background: var(--blueprint-tint);
-  color: var(--blueprint);
-  border-color: var(--blueprint-tint-strong);
-}
-
-/* ── Timeline ────────────────────────────────────── */
-.timeline {
-  position: relative;
-  padding-left: 32px;
-}
-
-.timeline::before {
-  content: '';
-  position: absolute;
-  left: 7px;
-  top: 6px;
-  bottom: 6px;
-  width: 1px;
-  background: #4444446e;
-}
-
-.timeline__item {
-  position: relative;
-  padding-bottom: 48px;
-}
-
-.timeline__item:last-child {
-  padding-bottom: 0;
-}
-
-.timeline__marker {
-  position: absolute;
-  left: -32px;
-  top: 6px;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  border: 3px solid var(--blueprint);
-  background: var(--bg);
-}
-
-.timeline__header {
-  display: flex !important;
-  justify-content: space-between;
-  align-items: baseline;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.timeline__role {
-  font-family: var(--font-mono);
-  font-size: 1.1rem;
-  font-weight: 700;
+  background: var(--bg-surface-hover);
   color: var(--ink);
-  margin: 0;
+  border-color: var(--bg-surface);
 }
 
-.timeline__duration {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  color: var(--ink-mute);
-  white-space: nowrap;
-}
-
-.timeline__meta {
+/* ── Experience Cards ────────────────────────────── */
+.exp-timeline {
   display: flex !important;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 6px;
-  margin: 4px 0 14px;
+  flex-direction: column;
+  gap: 24px;
 }
 
-.timeline__company {
-  font-family: var(--font-mono);
-  font-size: 0.85rem;
-  font-weight: 500;
+.exp-card {
+  position: relative;
+  display: flex !important;
+  background: var(--bg-surface);
+  border: 1px solid var(--rule-soft);
+  overflow: hidden;
 }
 
-.timeline__sep {
-  color: var(--ink-mute);
-  font-size: 0.7rem;
+/* Left accent stripe */
+.exp-card__accent {
+  width: 4px;
+  flex-shrink: 0;
+  background: var(--blueprint);
+}
+
+
+
+/* Step number badge */
+.exp-card__step {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  color: var(--blueprint);
+  opacity: 0.12;
+  line-height: 1;
+  pointer-events: none;
   user-select: none;
 }
 
-.timeline__type {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  color: var(--ink-mute);
+/* Card body */
+.exp-card__body {
+  flex: 1;
+  padding: 24px 24px 24px 48px;
+  display: flex !important;
+  flex-direction: column;
+  gap: 16px;
 }
 
-.timeline__location {
+/* Top section: title + duration row */
+.exp-card__top {
+  display: flex !important;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.exp-card__title-group {
+  display: flex !important;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+  min-width: 0;
+}
+
+.exp-card__role {
+  font-family: var(--font-mono);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0;
+  line-height: 1.35;
+}
+
+.exp-card__meta {
+  display: flex !important;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.exp-card__company {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--blueprint);
+  text-decoration: none;
+  transition: opacity 0.15s;
+}
+
+.exp-card__company:hover {
+  opacity: 0.75;
+}
+
+.exp-card__type {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 2px 10px;
+  background: var(--blueprint);
+  color: var(--bg-surface);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+/* Right meta: duration + location */
+.exp-card__right-meta {
+  display: flex !important;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.exp-card__duration {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--ink);
+  white-space: nowrap;
+  padding: 3px 10px;
+  background: var(--bg-surface-hover);
+  border: 1px solid var(--rule-soft);
+}
+
+.exp-card__location {
   display: inline-flex !important;
   align-items: center;
   gap: 3px;
   font-family: var(--font-mono);
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   color: var(--ink-mute);
+  white-space: nowrap;
 }
 
-.timeline__bullets {
-  margin: 0 0 14px;
+/* Bullet points */
+.exp-card__bullets {
+  margin: 0;
   padding-left: 18px;
   display: flex !important;
   flex-direction: column;
   gap: 8px;
-  list-style: disc;
+  list-style: none;
 }
 
-.timeline__bullets li {
+.exp-card__bullets li {
+  position: relative;
   color: var(--ink-soft);
   font-size: 0.9rem;
   line-height: 1.65;
+  padding-left: 4px;
 }
 
-.timeline__bullets li::marker {
+.exp-card__bullets li::before {
+  content: '→';
+  position: absolute;
+  left: -18px;
   color: var(--blueprint);
+  font-size: 0.85rem;
+  font-weight: 700;
 }
 
-.timeline__tags {
+/* Tags */
+.exp-card__tags {
   display: flex !important;
   flex-wrap: wrap;
   gap: 6px;
 }
+
+/* ── Mobile responsive ─────────────────────────── */
+@media (max-width: 640px) {
+  .exp-card__body {
+    padding: 20px 16px 20px 36px;
+  }
+
+  .exp-card__top {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .exp-card__right-meta {
+    align-items: flex-start;
+    flex-direction: row;
+    gap: 10px;
+  }
+
+  .exp-card__step {
+    font-size: 1.8rem;
+    left: 10px;
+    top: 12px;
+  }
+
+  .exp-card__location {
+    white-space: normal;
+  }
+}
+
 
 /* ── About ───────────────────────────────────────── */
 .about-grid {
@@ -1039,6 +1120,14 @@ a {
   color: var(--ink-soft);
   margin: 0;
   display: inline-block;
+}
+
+.education-card__bottom {
+  display: flex !important;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
 }
 
 .education-card__institution {
@@ -1689,4 +1778,125 @@ a {
   height: auto;
   display: block;
   mix-blend-mode: darken;
+}
+
+/* ── Certificate Modal ────────────────────────────── */
+.cert-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(8px);
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.2s ease;
+}
+
+.cert-confetti-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 10001;
+  pointer-events: none;
+}
+
+.cert-box {
+  position: relative;
+  background: var(--bg);
+  border: 2px solid var(--rule-soft);
+  padding: 24px;
+  max-width: 800px;
+  width: 90%;
+  box-shadow: var(--shadow-hard-lg);
+  animation: popIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.cert-box__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid var(--rule-soft);
+  padding-bottom: 12px;
+}
+
+.cert-box__title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: var(--ink);
+  margin: 0;
+}
+
+.cert-box__close {
+  background: var(--bg-surface);
+  border: 2px solid var(--rule-soft);
+  color: var(--ink-mute);
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  transition: all 0.15s ease;
+}
+
+.cert-box__close:hover {
+  background: var(--ink);
+  color: var(--bg);
+  border-color: var(--ink);
+}
+
+.cert-box__image-container {
+  display: flex !important;
+  justify-content: center;
+  overflow: hidden;
+  border: 1px solid var(--rule-soft);
+  background: #ffffff;
+  padding: 12px;
+  border-radius: 4px;
+}
+
+.cert-box__image {
+  width: 100%;
+  height: auto;
+  max-height: 70vh;
+  object-fit: contain;
+  border-radius: 2px;
+}
+
+/* ── Education Card Badge ────────────────────────── */
+.education-card__footer {
+  display: flex !important;
+  justify-content: flex-end;
+}
+
+.education-card__cert-btn {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 6px 14px;
+  background: var(--blueprint);
+  color: #ffffff;
+  border: 1px solid var(--blueprint);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-radius: 0;
+}
+
+.education-card__cert-btn:hover {
+  background: var(--bg);
+  color: var(--blueprint);
+  border-color: var(--code-bg);
+  transform: translate(-1px, -1px);
+  box-shadow: var(--shadow-hard);
+}
+
+.education-card__cert-btn svg {
+  flex-shrink: 0;
 }
