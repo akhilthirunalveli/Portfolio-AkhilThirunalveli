@@ -27,66 +27,24 @@ export default function EmailModal({ onClose }) {
   };
 
   return createPortal(
-    <div className="cert-overlay" onClick={onClose} style={{ zIndex: 1000 }}>
-      <div 
-        onClick={(e) => e.stopPropagation()} 
-        style={{ 
-          display: "flex", 
-          alignItems: "center", 
-          gap: "1.5rem",
-          background: "var(--bg-surface)", 
-          padding: "0.5rem 0.5rem 0.5rem 1.25rem", 
-          borderRadius: "8px",
-          border: "1px solid var(--rule-soft)",
-          boxShadow: "var(--shadow-hard)",
-          animation: "slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1)"
-        }}
-      >
-        <span style={{ fontFamily: "var(--font-mono)", color: "var(--blueprint)", fontWeight: 600, fontSize: "0.95rem" }}>
-          {personalInfo.email}
-        </span>
-
-        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-          <button 
+    <div className="qr-overlay" onClick={onClose}>
+      <div className="qr-box email-modal" onClick={(e) => e.stopPropagation()}>
+        <div className="qr-box__header">
+          <h3 className="qr-box__title">Get in Touch</h3>
+          <button className="qr-box__close" onClick={onClose} aria-label="Close" type="button">✕</button>
+        </div>
+        <div className="email-modal__content">
+          <span className="email-modal__address">{personalInfo.email}</span>
+          <button
             onClick={handleCopy}
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              background: copied ? "#10b981" : "var(--blueprint)",
-              color: "white",
-              border: "none",
-              borderRadius: "4px",
-              width: "36px",
-              height: "36px",
-              cursor: "pointer",
-              transition: "background 0.2s"
-            }}
-            title="Copy email"
+            className="email-modal__copy"
+            title={copied ? "Copied!" : "Copy email"}
           >
             {copied ? <Check size={16} /> : <Copy size={16} />}
-          </button>
-
-          <button
-            onClick={onClose}
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              background: "var(--bg-surface-hover)",
-              color: "var(--ink)",
-              border: "1px solid var(--rule-soft)",
-              borderRadius: "4px",
-              width: "36px",
-              height: "36px",
-              cursor: "pointer",
-              fontSize: "1.1rem"
-            }}
-            title="Close"
-          >
-            ✕
+            {copied ? "Copied" : "Copy"}
           </button>
         </div>
+        <p className="qr-box__hint">{copied ? "Email copied to clipboard!" : "Click copy to grab my email"}</p>
       </div>
     </div>,
     document.body

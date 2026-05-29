@@ -1,6 +1,6 @@
 import SectionHeading from "./SectionHeading";
 import { experienceData } from "@/data/portfolio";
-import { MapPin, Briefcase } from "lucide-react";
+import { MapPin, Calendar, ArrowUpRight } from "lucide-react";
 
 export default function ExperienceSection() {
   return (
@@ -26,56 +26,58 @@ export default function ExperienceSection() {
       <div className="exp-timeline">
         {experienceData.map((exp, index) => (
           <article key={exp.id} className="exp-card">
-            {/* Left accent bar */}
-            <div className="exp-card__accent" aria-hidden="true" />
-
-            {/* Step number */}
-            <div className="exp-card__step" aria-hidden="true">
-              {String(index + 1).padStart(2, "0")}
-            </div>
-
-            {/* Content */}
-            <div className="exp-card__body">
-              <div className="exp-card__top">
-                <div className="exp-card__title-group">
-                  <h3 className="exp-card__role">{exp.role}</h3>
-                  <div className="exp-card__meta">
-                    <a
-                      href={exp.companyUrl}
-                      className="exp-card__company"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {exp.company}
-                    </a>
-                    {exp.type && (
-                      <span className="exp-card__type">{exp.type}</span>
-                    )}
-                  </div>
-                </div>
-                <div className="exp-card__right-meta">
-                  <span className="exp-card__duration">{exp.duration}</span>
-                  {exp.location && (
-                    <span className="exp-card__location">
-                      <MapPin size={11} /> {exp.location}
-                    </span>
+            {/* ── Header Row ── */}
+            <div className="exp-card__header">
+              <div className="exp-card__number">
+                {String(index + 1).padStart(2, "0")}
+              </div>
+              <div className="exp-card__header-info">
+                <h3 className="exp-card__role">{exp.role}</h3>
+                <div className="exp-card__company-row">
+                  <a
+                    href={exp.companyUrl}
+                    className="exp-card__company"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {exp.company}
+                    <ArrowUpRight size={12} />
+                  </a>
+                  {exp.type && (
+                    <span className="exp-card__type">{exp.type}</span>
                   )}
                 </div>
               </div>
+            </div>
 
-              <ul className="exp-card__bullets">
-                {exp.bullets?.map((b, i) => (
-                  <li key={i}>{b}</li>
-                ))}
-              </ul>
+            {/* ── Meta Strip ── */}
+            <div className="exp-card__meta-strip">
+              <span className="exp-card__meta-item">
+                <Calendar size={13} />
+                {exp.duration}
+              </span>
+              {exp.location && (
+                <span className="exp-card__meta-item">
+                  <MapPin size={13} />
+                  {exp.location}
+                </span>
+              )}
+            </div>
 
-              <div className="exp-card__tags">
-                {exp.tags?.map((tag) => (
-                  <span key={tag} className="tag tag--accent">
-                    {tag}
-                  </span>
-                ))}
-              </div>
+            {/* ── Bullets ── */}
+            <ul className="exp-card__bullets">
+              {exp.bullets?.map((b, i) => (
+                <li key={i}>{b}</li>
+              ))}
+            </ul>
+
+            {/* ── Tags ── */}
+            <div className="exp-card__tags">
+              {exp.tags?.map((tag) => (
+                <span key={tag} className="exp-card__tag">
+                  {tag}
+                </span>
+              ))}
             </div>
           </article>
         ))}

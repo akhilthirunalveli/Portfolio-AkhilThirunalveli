@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import SectionHeading from "./SectionHeading";
 import { Play, Pause, Volume2, VolumeX } from "lucide-react";
 
@@ -25,6 +25,14 @@ export default function FinalMessageSection() {
   const [activeCaption, setActiveCaption] = useState("");
   
   const audioRef = useRef(null);
+
+  useEffect(() => {
+    // If the audio metadata is already loaded (e.g. from cache) by the time the component mounts,
+    // the onLoadedMetadata event might not fire. We manually check the readyState here.
+    if (audioRef.current && audioRef.current.readyState >= 1) {
+      setDuration(audioRef.current.duration);
+    }
+  }, []);
 
   const togglePlay = () => {
     if (!audioRef.current) return;
@@ -67,7 +75,7 @@ export default function FinalMessageSection() {
   };
 
   const formatTime = (time) => {
-    if (isNaN(time)) return "0:00";
+    if (isNaN(time) || time === Infinity) return "0:00";
     const min = Math.floor(time / 60);
     const sec = Math.floor(time % 60);
     return `${min}:${sec < 10 ? '0' : ''}${sec}`;
@@ -93,6 +101,7 @@ export default function FinalMessageSection() {
         <audio 
           ref={audioRef}
           src="/Voice/AkhilThirunalveli_Message.mp3"
+          preload="metadata"
           onTimeUpdate={handleTimeUpdate}
           onLoadedMetadata={handleLoadedMetadata}
           onEnded={() => setIsPlaying(false)}
