@@ -27,7 +27,7 @@ export const experienceData = [
     role: "AI Engineer Intern (Contract)",
     company: "Snorkel AI",
     companyUrl: "https://snorkel.ai",
-    duration: "Jan – May 2025",
+    duration: "Jan – May 2025 (Present)",
     type: "Internship",
     location: "Redwood City, CA, United States | Remote",
     bullets: [
