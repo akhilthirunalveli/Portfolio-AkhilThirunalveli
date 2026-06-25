@@ -18,14 +18,6 @@ const categoryIcons: Record<Category, string> = {
   "Life Lessons": "✦",
 };
 
-const thumbnailIcons: Record<string, string> = {
-  Concept: "{ }",
-  Interviews: "▸▸",
-  Learnings: "◇◇",
-  Experience: ">>_",
-  "Life Lessons": "★",
-  Recent: "⟡",
-};
 
 export default function BlogListClient({ allPosts }: { allPosts: BlogPost[] }) {
   const [activeCategory, setActiveCategory] = useState<Category>("Recent");
@@ -76,11 +68,6 @@ export default function BlogListClient({ allPosts }: { allPosts: BlogPost[] }) {
               href={`/blog/${post.slug}`}
               className="blog-card"
             >
-              <div className="blog-card__thumbnail">
-                <span className="blog-card__thumbnail-icon">
-                  {thumbnailIcons[post.category] || "◆"}
-                </span>
-              </div>
 
               <div className="blog-card__body">
                 <div className="blog-card__meta">
@@ -117,31 +104,7 @@ export default function BlogListClient({ allPosts }: { allPosts: BlogPost[] }) {
           )}
         </section>
 
-        {/* ─── Interview Experiences Sidebar ─── */}
-        <aside className="interview-sidebar">
-          <div className="interview-sidebar__header">
-            <h3>Interview Experiences</h3>
-            <p>Notes and learnings from my technical interviews.</p>
-          </div>
-          
-          <div className="interview-list">
-            <Link href="#" className="interview-card">
-              <div className="interview-card__company">Google</div>
-              <div className="interview-card__role">Software Engineer Intern</div>
-              <div className="interview-card__status status--offer">Offer</div>
-            </Link>
-            <Link href="#" className="interview-card">
-              <div className="interview-card__company">Amazon</div>
-              <div className="interview-card__role">SDE I</div>
-              <div className="interview-card__status status--upcoming">Upcoming</div>
-            </Link>
-            <Link href="#" className="interview-card">
-              <div className="interview-card__company">Meta</div>
-              <div className="interview-card__role">Front-End Engineer</div>
-              <div className="interview-card__status status--completed">Completed</div>
-            </Link>
-          </div>
-        </aside>
+
       </div>
     </main>
   );
