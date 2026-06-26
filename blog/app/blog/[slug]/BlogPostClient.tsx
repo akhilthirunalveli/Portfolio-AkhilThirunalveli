@@ -2,8 +2,9 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { ArrowLeft, Eye, Clock, CalendarBlank } from "@phosphor-icons/react";
+import { ArrowLeft, ArrowUp, Eye, Clock, CalendarBlank, LinkSimple, Check } from "@phosphor-icons/react";
 import type { BlogPost } from "@/lib/blog-types";
+import ReadingProgress from "@/app/components/ReadingProgress";
 
 interface TocItem {
   id: string;
@@ -166,12 +167,19 @@ export default function BlogPostClient({ post }: { post: BlogPost }) {
   const htmlContent = useMemo(() => parseMarkdown(post.content), [post.content]);
 
   const [activeId, setActiveId] = useState<string>("");
+  const [copied, setCopied] = useState(false);
+
+  const handleCopyLink = () => {
+    navigator.clipboard.writeText(window.location.href);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
   useEffect(() => {
     const handleScroll = () => {
       const headingElements = tocItems
         .map((item) => document.getElementById(item.id))
-        .filter(Boolean) as HTMLElement[];
+        .filter((el): el is HTMLElement => el !== null);
 
       if (headingElements.length === 0) return;
 
@@ -185,7 +193,7 @@ export default function BlogPostClient({ post }: { post: BlogPost }) {
 
       let found = headingElements[0].id;
       for (const el of headingElements) {
-        if (el.getBoundingClientRect().top <= 140) {
+        if (el.getBoundingClientRect().top < 120) {
           found = el.id;
         }
       }
@@ -200,52 +208,64 @@ export default function BlogPostClient({ post }: { post: BlogPost }) {
   }, [tocItems]);
 
   return (
-    <div className="post-page">
-      <article className="post-content">
-        <Link href="/" className="post-back">
-          <ArrowLeft size={16} weight="bold" /> Back to Blog
-        </Link>
+    <>
+      <ReadingProgress />
 
-        <h1 className="post-title">{post.title}</h1>
+      <div className="post-page">
+        <article className="post-content">
+          <Link href="/" className="post-back">
+            <ArrowLeft size={16} weight="bold" /> Back to Blog
+          </Link>
 
-        <div className="post-meta-bar">
-          <div className="post-author">
-            Written by <strong>Akhil Thirunalveli</strong>
+          <h1 className="post-title">{post.title}</h1>
+
+          <div className="post-meta-bar">
+            <div className="post-author">
+              Written by <strong>Akhil Thirunalveli</strong>
+            </div>
+            <div className="post-stats">
+              <span><Eye size={16} weight="bold" /> {formatViews(post.views)} views</span>
+              <span><Clock size={16} weight="bold" /> {post.readTime}</span>
+              <span><CalendarBlank size={16} weight="bold" /> {post.date}</span>
+              <button
+                className={`copy-link-btn ${copied ? 'copy-link-btn--copied' : ''}`}
+                onClick={handleCopyLink}
+                type="button"
+              >
+                {copied ? <><Check size={16} weight="bold" /></> : <><LinkSimple size={16} weight="bold" /> </>}
+              </button>
+            </div>
           </div>
-          <div className="post-stats">
-            <span><Eye size={16} weight="bold" /> {formatViews(post.views)} views</span>
-            <span><Clock size={16} weight="bold" /> {post.readTime}</span>
-            <span><CalendarBlank size={16} weight="bold" /> {post.date}</span>
-          </div>
-        </div>
 
-        <div
-          className="post-body"
-          dangerouslySetInnerHTML={{ __html: htmlContent }}
-        />
-      </article>
+          <div
+            className="post-body"
+            dangerouslySetInnerHTML={{ __html: htmlContent }}
+          />
+        </article>
 
-      {tocItems.length > 0 && (
-        <aside className="toc-sidebar">
-          <div className="toc-card">
-            <p className="toc-sidebar__label">On this page</p>
-            <nav className="toc-list" aria-label="Table of contents">
-              {tocItems.map((item) => (
-                <a
-                  key={item.id}
-                  href={`#${item.id}`}
-                  className={`toc-link ${
-                    item.level === 3 ? "toc-link--h3" : ""
-                  } ${activeId === item.id ? "toc-link--active" : ""}`.trim()}
-                >
-                  <span className="toc-link__indicator" aria-hidden="true" />
-                  <span>{item.text}</span>
-                </a>
-              ))}
-            </nav>
-          </div>
-        </aside>
-      )}
-    </div>
+        {tocItems.length > 0 && (
+          <aside className="toc-sidebar">
+            <div className="toc-card">
+              <p className="toc-sidebar__label">On this page</p>
+              <nav className="toc-list" aria-label="Table of contents">
+                {tocItems.map((item) => (
+                  <a
+                    key={item.id}
+                    href={`#${item.id}`}
+                    className={`toc-link ${
+                      item.level === 3 ? "toc-link--h3" : ""
+                    } ${activeId === item.id ? "toc-link--active" : ""}`.trim()}
+                  >
+                    <span className="toc-link__indicator" aria-hidden="true" />
+                    <span>{item.text}</span>
+                  </a>
+                ))}
+              </nav>
+            </div>
+          </aside>
+        )}
+      </div>
+
+    </>
   );
 }
