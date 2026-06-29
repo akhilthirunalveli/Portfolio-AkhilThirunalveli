@@ -28,9 +28,8 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 
     if (stored === "light" || stored === "dark") {
       setTheme(stored);
-    } else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-      setTheme("dark");
     }
+    // Default stays "light" — no system preference override
 
     setMounted(true);
   }, []);

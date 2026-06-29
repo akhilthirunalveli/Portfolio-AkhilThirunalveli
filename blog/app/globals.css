@@ -173,6 +173,24 @@ body {
   color: var(--ink);
 }
 
+/* Plain background behind main content, dotted pattern only on sides */
+.main-content-wrapper {
+  position: relative;
+}
+
+.main-content-wrapper::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(1200px, 100%);
+  height: 100%;
+  background: var(--bg);
+  z-index: -1;
+  pointer-events: none;
+}
+
 ::selection {
   background: var(--blueprint);
   color: #fff;
@@ -458,9 +476,9 @@ body {
 }
 
 .blog-card__category {
-  background: var(--blueprint-tint);
-  color: var(--blueprint);
-  border: 1px solid var(--blueprint-tint-strong);
+  background: var(--blueprint);
+  color: #fff;
+  border: 1px solid var(--blueprint);
   padding: 2px 8px;
   font-weight: 600;
   font-size: 0.68rem;
@@ -694,7 +712,7 @@ body {
 }
 
 .post-title {
-  font-family: var(--font-body);
+  font-family: var(--font-heading);
   font-size: clamp(1.8rem, 3.5vw, 2.6rem);
   font-weight: 700;
   line-height: 1.25;
@@ -1550,18 +1568,17 @@ body {
   border-radius: 0 2px 2px 0;
 }
 
-/* Footer */
+/* Footer — Thin bar */
 .site-footer {
-  margin-top: 80px;
+  margin-top: 40px;
   border-top: 1px solid var(--rule-soft);
   background: var(--bg-surface);
   position: relative;
-  overflow: hidden;
 }
 
 .site-footer__accent {
   display: flex;
-  height: 4px;
+  height: 2px;
 }
 
 .site-footer__accent span {
@@ -1572,78 +1589,51 @@ body {
 .site-footer__accent span:nth-child(2) { background: var(--ink); }
 .site-footer__accent span:nth-child(3) { background: var(--bg-surface-hover); }
 
-.site-footer__grid {
+.site-footer__bar {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 64px 48px;
-  display: grid;
-  grid-template-columns: 1fr 1fr 2fr;
-  gap: 48px;
-}
-
-.site-footer__col {
+  padding: 14px 48px;
   display: flex;
-  flex-direction: column;
-  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--ink-faint);
+  flex-wrap: wrap;
 }
 
-.site-footer__heading {
-  font-family: var(--font-display);
-  font-size: 1.2rem;
-  color: var(--blueprint);
-  margin: 0 0 8px 0;
-  letter-spacing: 0.5px;
+.site-footer__copyright {
+  white-space: nowrap;
+}
+
+.site-footer__links {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
 }
 
 .site-footer__link {
   font-family: var(--font-mono);
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   color: var(--ink-soft);
   text-decoration: none;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  transition: color 0.2s ease, transform 0.2s ease;
-  width: fit-content;
+  gap: 5px;
+  transition: color 0.2s ease;
+  white-space: nowrap;
 }
 
 .site-footer__link:hover {
-  color: var(--ink);
-  transform: translateX(4px);
-}
-
-.site-footer__text {
-  font-family: var(--font-mono);
-  font-size: 0.85rem;
-  color: var(--ink-soft);
-  line-height: 1.6;
-  margin: 0;
-}
-
-.site-footer__bottom {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 24px 48px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-top: 1px solid var(--rule-soft);
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  color: var(--ink-faint);
-}
-
-.site-footer__top-link {
-  color: var(--ink-soft);
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  transition: color 0.2s ease;
-}
-
-.site-footer__top-link:hover {
   color: var(--blueprint);
+}
+
+.site-footer__divider {
+  width: 1px;
+  height: 12px;
+  background: var(--rule-soft);
 }
 
 /* Mobile Overrides */
@@ -1667,16 +1657,14 @@ body {
   
   .blog-grid { grid-template-columns: 1fr; gap: 16px; }
   
-  .site-footer__grid {
-    grid-template-columns: 1fr;
-    gap: 40px;
-    padding: 48px 24px;
-  }
-  .site-footer__bottom {
-    padding: 24px;
+  .site-footer__bar {
+    padding: 12px 20px;
     flex-direction: column;
-    gap: 16px;
+    gap: 10px;
     text-align: center;
+  }
+  .site-footer__links {
+    justify-content: center;
   }
   
   .blog-header {

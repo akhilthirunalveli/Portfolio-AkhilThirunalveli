@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { JetBrains_Mono, Source_Serif_4, VT323, Outfit } from "next/font/google";
+import { JetBrains_Mono, Source_Serif_4, Google_Sans, VT323 } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/app/components/ThemeProvider";
@@ -24,10 +24,10 @@ const jetbrainsMono = JetBrains_Mono({
   weight: ["400", "500", "600", "700"],
 });
 
-const outfit = Outfit({
+const googleSans = Google_Sans({
   variable: "--font-heading-next",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "500", "700"],
 });
 
 export const metadata: Metadata = {
@@ -51,14 +51,16 @@ export default function RootLayout({
         vt323.variable,
         sourceSerif4.variable,
         jetbrainsMono.variable,
-        outfit.variable
+        googleSans.variable
       )}
     >
       <body className="min-h-full flex flex-col">
         <ThemeProvider>
           <Navbar />
-          <main className="flex-1 pt-16">{children}</main>
-          <Footer />
+          <div className="main-content-wrapper">
+            <main className="flex-1 pt-16">{children}</main>
+            <Footer />
+          </div>
         </ThemeProvider>
       </body>
     </html>

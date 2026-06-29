@@ -3,8 +3,7 @@ export type Category =
   | "Learnings"
   | "Concept"
   | "Interviews"
-  | "Experience"
-  | "Life Lessons";
+  | "Experience";
 
 export interface BlogPost {
   slug: string;
@@ -24,5 +23,4 @@ export const categories: Category[] = [
   "Concept",
   "Interviews",
   "Experience",
-  "Life Lessons",
 ];

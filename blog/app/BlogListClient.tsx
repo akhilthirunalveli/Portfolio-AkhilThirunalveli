@@ -4,7 +4,8 @@ import { useState } from "react";
 import Link from "next/link";
 import { categories, type Category, type BlogPost } from "@/lib/blog-types";
 import { useScrollAnimation } from "@/app/hooks/useIntersectionObserver";
-import { MagnifyingGlass } from "@phosphor-icons/react";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { Search01Icon } from "@hugeicons/core-free-icons";
 
 function formatViews(views: number): string {
   if (views >= 1000) return `${(views / 1000).toFixed(1)}k`;
@@ -75,7 +76,7 @@ export default function BlogListClient({ allPosts }: { allPosts: BlogPost[] }) {
           {filteredPosts.length === 0 && (
             <div className="blog-empty-state">
               <div className="blog-empty-state__icon">
-                <MagnifyingGlass size={32} weight="bold" color="var(--blueprint)" />
+                <HugeiconsIcon icon={Search01Icon} size={32} color="var(--blueprint)" />
               </div>
               <h3 className="blog-empty-state__title">No Posts Yet</h3>
               <p className="blog-empty-state__description">

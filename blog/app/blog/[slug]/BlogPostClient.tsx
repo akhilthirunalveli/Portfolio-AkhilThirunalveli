@@ -2,7 +2,8 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { ArrowLeft, ArrowUp, Eye, Clock, CalendarBlank, LinkSimple, Check } from "@phosphor-icons/react";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { ArrowLeft01Icon, ViewIcon, Clock01Icon, Calendar01Icon, Link01Icon, Tick01Icon } from "@hugeicons/core-free-icons";
 import type { BlogPost } from "@/lib/blog-types";
 import ReadingProgress from "@/app/components/ReadingProgress";
 
@@ -214,7 +215,7 @@ export default function BlogPostClient({ post }: { post: BlogPost }) {
       <div className="post-page">
         <article className="post-content">
           <Link href="/" className="post-back">
-            <ArrowLeft size={16} weight="bold" /> Back to Blog
+            <HugeiconsIcon icon={ArrowLeft01Icon} size={16} /> Back to Blog
           </Link>
 
           <h1 className="post-title">{post.title}</h1>
@@ -224,15 +225,15 @@ export default function BlogPostClient({ post }: { post: BlogPost }) {
               Written by <strong>Akhil Thirunalveli</strong>
             </div>
             <div className="post-stats">
-              <span><Eye size={16} weight="bold" /> {formatViews(post.views)} views</span>
-              <span><Clock size={16} weight="bold" /> {post.readTime}</span>
-              <span><CalendarBlank size={16} weight="bold" /> {post.date}</span>
+              <span><HugeiconsIcon icon={ViewIcon} size={16} /> {formatViews(post.views)} views</span>
+              <span><HugeiconsIcon icon={Clock01Icon} size={16} /> {post.readTime}</span>
+              <span><HugeiconsIcon icon={Calendar01Icon} size={16} /> {post.date}</span>
               <button
                 className={`copy-link-btn ${copied ? 'copy-link-btn--copied' : ''}`}
                 onClick={handleCopyLink}
                 type="button"
               >
-                {copied ? <><Check size={16} weight="bold" /></> : <><LinkSimple size={16} weight="bold" /> </>}
+                {copied ? <><HugeiconsIcon icon={Tick01Icon} size={16} /></> : <><HugeiconsIcon icon={Link01Icon} size={16} /> </>}
               </button>
             </div>
           </div>

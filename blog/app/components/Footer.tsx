@@ -4,7 +4,6 @@ import {
   LinkedinLogo,
   XLogo,
   Envelope,
-  ArrowUp,
 } from "@phosphor-icons/react/dist/ssr";
 
 export default function Footer() {
@@ -16,60 +15,55 @@ export default function Footer() {
         <span />
       </div>
 
-      <div className="site-footer__grid">
-        <div className="site-footer__col">
-          <h4 className="site-footer__heading">Navigation</h4>
+      <div className="site-footer__bar">
+        <span className="site-footer__copyright">
+         Akhil Thirunalveli
+        </span>
+
+        <div className="site-footer__links">
           <Link href="/" className="site-footer__link">
             Blog
           </Link>
+          <span className="site-footer__divider" aria-hidden="true" />
           <Link href="/about" className="site-footer__link">
             About
           </Link>
-        </div>
-
-        <div className="site-footer__col">
-          <h4 className="site-footer__heading">Connect</h4>
+          <span className="site-footer__divider" aria-hidden="true" />
           <a
             href="https://github.com/akhilthirunalveli"
             target="_blank"
             rel="noopener noreferrer"
             className="site-footer__link"
           >
-            <GithubLogo size={16} weight="bold" /> GitHub
+            <GithubLogo size={14} weight="bold" /> GitHub
           </a>
+          <span className="site-footer__divider" aria-hidden="true" />
           <a
             href="https://linkedin.com/in/akhilthirunalveli"
             target="_blank"
             rel="noopener noreferrer"
             className="site-footer__link"
           >
-            <LinkedinLogo size={16} weight="bold" /> LinkedIn
+            <LinkedinLogo size={14} weight="bold" /> LinkedIn
           </a>
+          <span className="site-footer__divider" aria-hidden="true" />
           <a
             href="https://x.com/archivebyakhil"
             target="_blank"
             rel="noopener noreferrer"
             className="site-footer__link"
           >
-            <XLogo size={16} weight="bold" /> X (Twitter)
+            <XLogo size={14} weight="bold" /> X
           </a>
+          <span className="site-footer__divider" aria-hidden="true" />
           <a
             href="mailto:work.akhilthirunalveli@gmail.com"
             className="site-footer__link"
           >
-            <Envelope size={16} weight="bold" /> Email
+            <Envelope size={14} weight="bold" /> Email
           </a>
         </div>
-
-        <div className="site-footer__col">
-          <h4 className="site-footer__heading">Newsletter</h4>
-          <p className="site-footer__text">
-            Get new articles delivered to your inbox. Written thoughtfully, sent
-            rarely.
-          </p>
-        </div>
       </div>
-
     </footer>
   );
 }
