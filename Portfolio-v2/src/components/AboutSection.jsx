@@ -28,7 +28,7 @@ export default function AboutSection() {
           <h3 className="about__sidebar-title">Interests</h3>
           <ul className="tag-list tag-list--vertical" role="list">
             {aboutData.interests.map((interest) => (
-              <li key={interest} className="tag tag--accent">
+              <li key={interest} className="tag">
                 {interest}
               </li>
             ))}

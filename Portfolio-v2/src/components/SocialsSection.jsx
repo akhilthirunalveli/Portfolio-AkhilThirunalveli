@@ -63,7 +63,7 @@ export default function SocialsSection() {
           <a
             key={social.id}
             href={social.url}
-            className="social-link"
+            className={`social-link ${social.platform === "Blog" ? "social-link--highlight" : ""}`}
             target={social.url.startsWith("mailto:") ? undefined : "_blank"}
             rel={social.url.startsWith("mailto:") ? undefined : "noopener noreferrer"}
           >

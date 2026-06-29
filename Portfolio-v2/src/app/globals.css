@@ -260,7 +260,9 @@ a {
 
 /* ── Hero ────────────────────────────────────────── */
 .hero {
-  padding: 60px 0 48px;
+  padding: 30px 0 30px 30px;
+  position: relative;
+  background-color: var(--bg);
 }
 
 .hero__name {
@@ -279,11 +281,74 @@ a {
   background: var(--bg);
   width: fit-content;
   padding: 2px 0;
+  opacity: 0;
+}
+
+.hero__name-line--first {
+  animation: heroSlideIn 0.6s ease-out 0.1s forwards;
+}
+
+.hero__name-line--second {
+  display: flex !important;
+  align-items: center;
+  gap: 0.2rem;
+  animation: heroSlideIn 0.6s ease-out 0.3s forwards;
+}
+
+/* ── Pronunciation Button ── */
+.hero__pronunciation {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 1px;
+  display: inline-flex;
+  align-items: center;
+  color: var(--ink);
+  opacity: 0.35;
+  transition: opacity 0.2s ease, color 0.2s ease;
+}
+
+.hero__pronunciation:hover {
+  opacity: 1;
+  color: var(--blueprint);
+}
+
+/* ── Status Badge ── */
+.hero__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--ink-mute);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-top: 20px;
+  opacity: 0;
+  animation: heroFadeIn 0.5s ease-out 0.5s forwards;
+}
+
+.hero__status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--blueprint);
+  animation: statusPulse 2s ease-in-out infinite;
 }
 
 .hero__meta {
   margin-top: 32px;
   max-width: 520px;
+  opacity: 0;
+  animation: heroFadeIn 0.5s ease-out 0.55s forwards;
+}
+
+.hero__meta-wrapper {
+  background: var(--bg);
+  width: fit-content;
+  padding-right: 16px;
+  padding-bottom: 8px;
 }
 
 .hero__title {
@@ -303,8 +368,72 @@ a {
 
 .hero__actions {
   display: flex !important;
+  align-items: stretch;
   gap: 12px;
   flex-wrap: wrap;
+  opacity: 0;
+  animation: heroFadeIn 0.4s ease-out 0.7s forwards;
+}
+
+.hero__actions-group {
+  display: flex;
+  gap: 10px;
+}
+
+/* ── Icon Button Variant ── */
+.btn--icon {
+  padding: 0 14px;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  color: var(--blueprint);
+  border: 2px solid var(--rule-soft);
+}
+
+.btn--icon:hover {
+  border-color: var(--blueprint);
+  background: var(--blueprint-tint);
+}
+
+
+
+
+/* ── Hero Mobile ── */
+@media (max-width: 640px) {
+  .hero {
+    padding: 40px 0 32px;
+  }
+
+  .hero__scroll-cue {
+    margin-top: 32px;
+  }
+
+  .hero__status {
+    margin-top: 14px;
+    font-size: 0.65rem;
+  }
+
+  .hero__actions {
+    flex-wrap: nowrap !important;
+    gap: 6px;
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+
+  .hero__actions .btn {
+    padding: 6px 10px;
+    font-size: 0.7rem;
+    gap: 4px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .hero__actions .btn svg {
+    width: 14px;
+    height: 14px;
+  }
 }
 
 /* ── Buttons ─────────────────────────────────────── */
@@ -317,7 +446,10 @@ a {
   cursor: pointer;
   transition: all 0.2s;
   text-decoration: none;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
 
 .btn--primary {
@@ -353,11 +485,7 @@ a {
   color: var(--ink-soft);
 }
 
-.hero__actions {
-  display: flex !important;
-  align-items: stretch;
-  gap: 12px;
-}
+
 
 /* ── QR Modal ────────────────────────────────────── */
 .qr-overlay {
@@ -753,6 +881,8 @@ a {
   font-size: 0.92rem;
   line-height: 1.7;
   padding-left: 20px;
+  text-align: justify;
+  text-justify: inter-word;
 }
 
 .exp-card__bullets li::before {
@@ -787,52 +917,80 @@ a {
 /* ── Mobile Responsive ── */
 @media (max-width: 640px) {
   .exp-timeline {
-    gap: 32px;
+    gap: 28px;
   }
 
   .exp-card {
-    padding-bottom: 32px;
+    padding-bottom: 28px;
   }
 
+  /* Stack header vertically — number becomes a small accent */
   .exp-card__header {
-    gap: 14px;
-    margin-bottom: 16px;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 14px;
   }
 
   .exp-card__number {
-    font-size: 2rem;
-    min-width: 40px;
+    font-size: 1.1rem;
+    min-width: unset;
+    opacity: 0.25;
+    padding-top: 0;
   }
 
   .exp-card__role {
-    font-size: 1rem;
+    font-size: 0.98rem;
+    line-height: 1.4;
   }
 
+  .exp-card__company-row {
+    gap: 8px;
+  }
+
+  .exp-card__company {
+    font-size: 0.8rem;
+  }
+
+  .exp-card__type {
+    font-size: 0.62rem;
+    padding: 2px 8px;
+  }
+
+  /* Remove all left-padding — content spans full width */
   .exp-card__meta-strip {
-    padding-left: 54px;
-    gap: 14px;
-    margin-bottom: 18px;
-  }
-
-  .exp-card__bullets {
-    padding-left: 54px;
-    gap: 10px;
-    margin-bottom: 18px;
-  }
-
-  .exp-card__bullets li {
-    font-size: 0.85rem;
-    padding-left: 16px;
-  }
-
-  .exp-card__tags {
-    padding-left: 54px;
-  }
-
-  .exp-card__meta-strip {
+    padding-left: 0;
     flex-direction: column;
     align-items: flex-start;
     gap: 6px;
+    margin-bottom: 16px;
+  }
+
+  .exp-card__meta-item {
+    font-size: 0.74rem;
+  }
+
+  .exp-card__bullets {
+    padding-left: 0;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .exp-card__bullets li {
+    font-size: 0.84rem;
+    padding-left: 16px;
+    line-height: 1.6;
+    text-align: justify;
+    text-justify: inter-word;
+  }
+
+  .exp-card__tags {
+    padding-left: 0;
+    gap: 6px;
+  }
+
+  .exp-card__tag {
+    font-size: 0.66rem;
+    padding: 3px 9px;
   }
 }
 
@@ -1755,6 +1913,28 @@ a {
   font-weight: 500;
 }
 
+.social-link--highlight {
+  position: relative;
+}
+
+.social-link--highlight::after {
+  content: 'New';
+  position: absolute;
+  top: -8px;
+  right: -10px;
+  background: var(--blueprint);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 12px;
+  box-shadow: 2px 2px 0 var(--ink);
+  z-index: 10;
+  pointer-events: none;
+}
+
+
 /* ── Footer ──────────────────────────────────────── */
 .site-footer {
   border-top: 1px solid var(--rule-soft);
@@ -1785,22 +1965,41 @@ a {
   margin: 0;
 }
 
-/* ── Entrance ────────────────────────────────────── */
-@media (prefers-reduced-motion: no-preference) {
-  .hero {
-    animation: fadeUp 0.5s ease-out both;
+/* ── Hero Entrance Animations ────────────────────── */
+@keyframes heroSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-@keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(16px)
-  }
+@keyframes heroFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
 
-  to {
-    opacity: 1;
-    transform: translateY(0)
+@keyframes statusPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+@keyframes scrollBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(4px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__name-line,
+  .hero__status,
+  .hero__meta,
+  .hero__actions,
+  .hero__scroll-cue {
+    opacity: 1 !important;
+    animation: none !important;
   }
 }
 

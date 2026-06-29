@@ -1,0 +1,319 @@
+%──────────────────────────────────────────────────────────────────────────────
+%  AKHIL THIRUNALVELI — PORTFOLIO
+%  Compile with: xelatex or lualatex (for fontawesome5 & custom fonts)
+%  Fallback:     pdflatex (uses Computer Modern; icons become text labels)
+%──────────────────────────────────────────────────────────────────────────────
+\documentclass[11pt, a4paper]{article}
+
+% ── Encoding & Fonts ────────────────────────────────────────────────────────
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}                       % modern Latin Modern fonts
+
+% ── Page Geometry ───────────────────────────────────────────────────────────
+\usepackage[
+  top=0.6in,
+  bottom=0.6in,
+  left=0.65in,
+  right=0.65in,
+]{geometry}
+
+% ── Colors ──────────────────────────────────────────────────────────────────
+\usepackage[dvipsnames]{xcolor}
+\definecolor{accent}{HTML}{2563EB}         % vibrant blue
+\definecolor{darkbg}{HTML}{0F172A}         % near-black for header bg
+\definecolor{lightgray}{HTML}{64748B}      % muted body text
+\definecolor{divider}{HTML}{E2E8F0}        % subtle divider lines
+\definecolor{tagbg}{HTML}{EFF6FF}          % pill background
+\definecolor{tagtext}{HTML}{1E40AF}        % pill text
+\definecolor{sectionline}{HTML}{2563EB}    % section underline
+
+% ── Packages ────────────────────────────────────────────────────────────────
+\usepackage{fontawesome5}                  % icons (\faGithub, \faLinkedin …)
+\usepackage{hyperref}                      % clickable links
+\usepackage{titlesec}                      % section formatting
+\usepackage{enumitem}                      % custom list spacing
+\usepackage{multicol}                      % multi-column layouts
+\usepackage{tabularx}                      % flexible tables
+\usepackage{tikz}                          % drawing (header, decorations)
+\usepackage{calc}                          % arithmetic in lengths
+\usepackage{parskip}                       % paragraph spacing, no indent
+\usepackage{fancyhdr}                      % headers / footers
+\usepackage{lastpage}                      % total page count
+\usepackage{microtype}                     % optical margin alignment
+\usepackage{graphicx}                      % images
+\usepackage{ragged2e}                      % better ragged text
+
+% ── Hyperref Setup ──────────────────────────────────────────────────────────
+\hypersetup{
+  colorlinks  = true,
+  urlcolor    = accent,
+  linkcolor   = accent,
+  pdfauthor   = {Akhil Thirunalveli},
+  pdftitle    = {Akhil Thirunalveli — Portfolio},
+  pdfsubject  = {AI \& Full Stack Engineer Portfolio},
+  pdfkeywords = {AI, Full Stack, Engineer, Portfolio, Resume},
+}
+
+% ── Section Formatting ─────────────────────────────────────────────────────
+\titleformat{\section}
+  {\Large\bfseries\color{darkbg}}          % format
+  {}                                       % label
+  {0pt}                                    % sep
+  {}                                       % before-code
+  [\vspace{-6pt}{\color{sectionline}\hrule height 2pt}\vspace{4pt}]
+
+\titlespacing*{\section}{0pt}{18pt}{8pt}
+
+% ── List Defaults ───────────────────────────────────────────────────────────
+\setlist[itemize]{
+  leftmargin  = 1.2em,
+  itemsep     = 2pt,
+  parsep      = 0pt,
+  topsep      = 2pt,
+  label       = \textcolor{accent}{\textbullet},
+}
+
+% ── Tag / Pill Command ─────────────────────────────────────────────────────
+\newcommand{\pill}[1]{%
+  \tikz[baseline=(tag.base)]{%
+    \node[
+      fill       = tagbg,
+      rounded corners = 3pt,
+      inner xsep = 5pt,
+      inner ysep = 2pt,
+      font       = \scriptsize\bfseries\color{tagtext},
+    ] (tag) {#1};%
+  }\hspace{1pt}%
+}
+
+% ── Compact Entry Commands ─────────────────────────────────────────────────
+\newcommand{\experienceentry}[5]{%
+  % #1 = Role, #2 = Company, #3 = Duration, #4 = Location, #5 = Bullets
+  \vspace{4pt}
+  {\large\bfseries\color{darkbg} #1}%
+  \hfill{\small\color{lightgray} #3}\\[1pt]
+  {\color{accent}\bfseries #2}%
+  \hfill{\small\color{lightgray}\faMapMarker*\ #4}%
+  \vspace{2pt}
+  #5%
+  \vspace{6pt}
+}
+
+\newcommand{\projectentry}[4]{%
+  % #1 = Title, #2 = One-liner, #3 = Users, #4 = Tags (comma-separated pills)
+  \vspace{4pt}
+  {\bfseries\color{darkbg} #1}%
+  \hfill{\small\color{lightgray} #3}\\[1pt]
+  {\small\color{lightgray} #2}\\[3pt]
+  #4%
+  \vspace{6pt}
+}
+
+% ── Header / Footer ────────────────────────────────────────────────────────
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\fancyfoot[C]{%
+  \small\color{lightgray}%
+  Akhil Thirunalveli \enspace\textbar\enspace Portfolio%
+  \hfill Page \thepage\ of \pageref{LastPage}%
+}
+
+% ════════════════════════════════════════════════════════════════════════════
+%   DOCUMENT START
+% ════════════════════════════════════════════════════════════════════════════
+\begin{document}
+\thispagestyle{empty}   % no header/footer on page 1 (we draw our own)
+
+% ── Hero Header ─────────────────────────────────────────────────────────────
+\begin{tikzpicture}[remember picture, overlay]
+  % dark background bar
+  \fill[darkbg]
+    ([yshift=1cm]current page.north west)
+    rectangle
+    ([yshift=-3.8cm]current page.north east);
+
+  % subtle accent line at bottom of header
+  \fill[accent]
+    ([yshift=-3.8cm]current page.north west)
+    rectangle
+    ([yshift=-3.95cm]current page.north east);
+
+  % Name
+  \node[anchor=west, text=white, font=\fontsize{28}{34}\bfseries\selectfont]
+    at ([xshift=0.65in, yshift=-1.1cm]current page.north west)
+    {AKHIL THIRUNALVELI};
+
+  % Title
+  \node[anchor=west, text=white!80, font=\large]
+    at ([xshift=0.65in, yshift=-1.8cm]current page.north west)
+    {AI \& Full Stack Engineer};
+
+  % Tagline
+  \node[anchor=west, text=white!60, font=\normalsize\itshape]
+    at ([xshift=0.65in, yshift=-2.4cm]current page.north west)
+    {Building things that live on the internet};
+
+  % Contact row
+  \node[anchor=west, text=white!75, font=\small]
+    at ([xshift=0.65in, yshift=-3.15cm]current page.north west)
+    {%
+      \faEnvelope\ \href{mailto:work.akhilthirunalveli@gmail.com}{work.akhilthirunalveli@gmail.com}%
+      \enspace\textbar\enspace%
+      \faMapMarker*\ India%
+      \enspace\textbar\enspace%
+      \faGithub\ \href{https://github.com/akhilthirunalveli}{akhilthirunalveli}%
+      \enspace\textbar\enspace%
+      \faLinkedin\ \href{https://linkedin.com/in/akhilthirunalveli}{akhilthirunalveli}%
+      \enspace\textbar\enspace%
+      \faGlobe\ \href{https://blog.akhil.world}{blog.akhil.world}%
+    };
+\end{tikzpicture}
+
+\vspace{3.2cm}  % push content below the header
+
+% ── About ───────────────────────────────────────────────────────────────────
+\section{\faUser\enspace About Me}
+
+A developer passionate about crafting clean, performant, and thoughtful digital experiences.
+I enjoy the full spectrum — I'm an engineer first, then a developer. I love building solutions
+that make a difference.
+
+When I'm not coding, you'll find me exploring new technologies, contributing to open source,
+or learning about the stock market and trying my luck on it.
+
+\smallskip
+{\small\bfseries Interests:\enspace}%
+\pill{AI \& Open Source}\pill{System Design}\pill{UI/UX}\pill{Cloud Infrastructure}\pill{Problem-Solving}
+
+% ── Experience ──────────────────────────────────────────────────────────────
+\section{\faBriefcase\enspace Experience}
+
+\experienceentry
+  {AI Engineer Intern (Contract)}
+  {Snorkel AI}
+  {Jan -- May 2025}
+  {Redwood City, CA $\vert$ Remote}
+  {%
+    \begin{itemize}
+      \item Developed specialized training datasets and evaluation environments targeting frontier model failure modes, improving model reliability in adversarial and edge-case scenarios.
+      \item Designed and evaluated 1,000+ task instances advancing Claude Sonnet in software engineering workflows — specifically Git operations, pull request review, and repository issue resolution at scale.
+      \item Built and tested autonomous AI agents capable of multi-step task execution across complex software engineering scenarios; identified and closed capability gaps in agent reasoning and tool use.
+    \end{itemize}
+    \pill{LLM}\pill{Adversarial Testing}\pill{AI Agents}\pill{Claude Sonnet}\pill{Git Ops}\pill{RLAIF}
+  }
+
+\experienceentry
+  {Software Development Engineer Intern}
+  {State Bank of India Foundation}
+  {Oct -- Dec 2024}
+  {Mumbai, MH $\vert$ Hybrid}
+  {%
+    \begin{itemize}
+      \item Engineered an AI-assisted decision pipeline processing 200k+ applications, reducing turnaround time by 85\% through automated multi-stage agentic workflows with rule-based scoring and validation layers.
+      \item Built anomaly detection and failure triage systems to surface data inconsistencies, ensuring auditability.
+      \item Designed scalable backend pipelines in Python and SQL with structured validation checkpoints, enabling reliable and debuggable outputs across 200k+ records.
+    \end{itemize}
+    \pill{Python}\pill{SQL}\pill{Agentic Workflows}\pill{Anomaly Detection}\pill{Data Engineering}
+  }
+
+% ── Projects ────────────────────────────────────────────────────────────────
+\section{\faCode\enspace Projects}
+
+\begin{multicols}{2}
+
+\projectentry
+  {\href{https://mockmateapp.vercel.app}{MockMate}}
+  {A suite of tools to help you land your dream job with confidence.}
+  {120+ users}
+  {\pill{WebRTC}\pill{Langchain}\pill{MERN}}
+
+\projectentry
+  {\href{https://knowmystatus.vercel.app}{KnowMyStatus}}
+  {Teacher monitoring and status tracking system for educational institutions.}
+  {8k+ users}
+  {\pill{Supabase}\pill{Framer}\pill{MERN}}
+
+\projectentry
+  {\href{https://tickr-cli.vercel.app}{Tickr}}
+  {CLI-first time-tracking tool for accurate, auditable work logs.}
+  {Fiverr collab}
+  {\pill{SQLite}\pill{Node.js}\pill{TUI}}
+
+\projectentry
+  {\href{https://teletype-edpe.onrender.com}{TeleType}}
+  {Real-time multi-client messaging over WebSockets — no internet required.}
+  {40+ users}
+  {\pill{WebSockets}\pill{LAN}\pill{Offline}}
+
+\projectentry
+  {\href{https://www.newssailor.com}{NewsSailor}}
+  {Automated news site showing global updates within seconds.}
+  {10k+ users}
+  {\pill{AWS}\pill{Actions}\pill{React}}
+
+\projectentry
+  {\href{https://aura-apk.vercel.app}{Aura}}
+  {Helps you find balance by tracking mood, sleep, and activity.}
+  {10+ users}
+  {\pill{React Native}\pill{ML}\pill{Expo}}
+
+\end{multicols}
+
+% ── Tech Stack ──────────────────────────────────────────────────────────────
+\section{\faLayerGroup\enspace Tech Stack}
+
+\begin{tabularx}{\textwidth}{@{} >{\bfseries\color{darkbg}}l X @{}}
+  Languages  & JavaScript \enspace\textbar\enspace TypeScript \enspace\textbar\enspace Python \enspace\textbar\enspace Langchain \\[4pt]
+  Frontend   & React \enspace\textbar\enspace Next.js \enspace\textbar\enspace Tailwind CSS \enspace\textbar\enspace HTML/CSS \\[4pt]
+  Backend    & Node.js \enspace\textbar\enspace Express \enspace\textbar\enspace FastAPI \enspace\textbar\enspace PostgreSQL \\[4pt]
+  Tools      & Git \enspace\textbar\enspace Docker \enspace\textbar\enspace AWS \enspace\textbar\enspace Linux \enspace\textbar\enspace Figma \\
+\end{tabularx}
+
+% ── Education ───────────────────────────────────────────────────────────────
+\section{\faGraduationCap\enspace Education}
+
+{\large\bfseries\color{darkbg} Bachelor of Technology — Computer Science \& Engineering}%
+\hfill{\small\color{lightgray} 2022 -- 2026}\\[1pt]
+{\color{accent}\bfseries Vellore Institute of Technology}%
+\hfill{\small\color{lightgray} CGPA: 8.65 / 10}
+
+% ── Achievements ────────────────────────────────────────────────────────────
+\section{\faTrophy\enspace Achievements}
+
+\begin{itemize}
+  \item \textbf{Hackathon Winner (2024)} — First place at XYZ Hackathon 2024; built a real-time collaboration tool in 36 hours.
+  \item \textbf{Open Source Contributor (2023)} — Contributed to major open-source projects with 500+ stars on personal repositories.
+  \item \textbf{Technical Writing (2023)} — Published articles on system design and web performance reaching 10k+ readers.
+\end{itemize}
+
+% ── Connect ─────────────────────────────────────────────────────────────────
+\section{\faLink\enspace Connect With Me}
+
+\begin{center}
+  \large
+  \href{https://github.com/akhilthirunalveli}{\faGithub\ GitHub}%
+  \enspace\textbar\enspace%
+  \href{https://linkedin.com/in/akhilthirunalveli}{\faLinkedin\ LinkedIn}%
+  \enspace\textbar\enspace%
+  \href{https://x.com/archivebyakhil}{\faXTwitter\ X / Twitter}%
+  \enspace\textbar\enspace%
+  \href{https://leetcode.com/akhilthirunalveli}{\faCode\ LeetCode}%
+  \enspace\textbar\enspace%
+  \href{https://blog.akhil.world}{\faPen\ Blog}%
+  \enspace\textbar\enspace%
+  \href{https://presentations.akhil.world}{\faDesktop\ Deck Room}%
+\end{center}
+
+\vfill
+
+% ── Footer Note ─────────────────────────────────────────────────────────────
+\begin{center}
+  \small\color{lightgray}
+  \rule{0.4\textwidth}{0.4pt}\\[4pt]
+  This portfolio was typeset in \LaTeX.\\
+  Last updated: June 2025.
+\end{center}
+
+\end{document}

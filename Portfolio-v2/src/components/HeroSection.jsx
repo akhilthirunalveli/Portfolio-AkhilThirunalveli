@@ -19,25 +19,15 @@ export default function HeroSection() {
     <section className="hero" aria-label="Introduction">
       <div className="hero__name-block">
         <h1 className="hero__name">
-          <span className="hero__name-line">{personalInfo.firstName}</span>
-          <span className="hero__name-line" style={{ display: "flex", alignItems: "center", gap: "0.2rem" }}>
+          <span className="hero__name-line hero__name-line--first">
+            {personalInfo.firstName}
+          </span>
+          <span className="hero__name-line hero__name-line--second">
             {personalInfo.lastName}
             <button
               onClick={playPronunciation}
+              className="hero__pronunciation"
               aria-label="Listen to pronunciation"
-              style={{
-                background: "transparent",
-                border: "none",
-                cursor: "pointer",
-                padding: "1px",
-                display: "inline-flex",
-                alignItems: "center",
-                color: "var(--ink)",
-                opacity: 0.5,
-                transition: "opacity 0.2s ease"
-              }}
-              onMouseEnter={(e) => e.currentTarget.style.opacity = 1}
-              onMouseLeave={(e) => e.currentTarget.style.opacity = 0.5}
             >
               <Volume2 size={24} />
             </button>
@@ -45,27 +35,34 @@ export default function HeroSection() {
           </span>
         </h1>
       </div>
+
       <div className="hero__meta">
-        <div style={{ background: "var(--bg)", width: "fit-content", paddingRight: "16px", paddingBottom: "8px" }}>
+        <div className="hero__meta-wrapper">
           <p className="hero__title">{personalInfo.title}</p>
-          <p className="hero__tagline" style={{ marginBottom: "20px" }}>{personalInfo.tagline}</p>
+          <p className="hero__tagline">{personalInfo.tagline}</p>
         </div>
         <div className="hero__actions">
           <a href="#projects" className="btn btn--primary">View Work</a>
-          <div style={{ display: "flex", gap: "10px" }}>
-            <a href={personalInfo.resumeUrl} className="btn btn--primary" target="_blank" rel="noopener noreferrer">Resume</a>
-            <button 
-              onClick={() => setIsEmailModalOpen(true)}
-              className="btn btn--primary" 
-              style={{ padding: "0 14px", display: "flex", alignItems: "center", justifyContent: "center" }}
-              aria-label="Email Me"
-            >
-              <Mail size={18} />
-            </button>
-          </div>
+          <a
+            href={personalInfo.resumeUrl}
+            className="btn btn--primary"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Resume
+          </a>
+          <button
+            onClick={() => setIsEmailModalOpen(true)}
+            className="btn btn--primary"
+            aria-label="Email Me"
+          >
+            <Mail size={18} />
+            Email
+          </button>
         </div>
       </div>
-      
+
+
       {isEmailModalOpen && <EmailModal onClose={() => setIsEmailModalOpen(false)} />}
     </section>
   );
